@@ -1,0 +1,1806 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%23123A68%27/%3E%3Crect x=%276%27 y=%277%27 width=%279%27 height=%279%27 rx=%272%27 fill=%27%23E3A23C%27/%3E%3Crect x=%2717%27 y=%277%27 width=%279%27 height=%279%27 rx=%272%27 fill=%27%234BC4E6%27/%3E%3Crect x=%276%27 y=%2718%27 width=%279%27 height=%277%27 rx=%272%27 fill=%27%239B8CFA%27/%3E%3Crect x=%2717%27 y=%2718%27 width=%279%27 height=%277%27 rx=%272%27 fill=%27%234ED2A3%27/%3E%3C/svg%3E">
+<title>BSC na Governança de TI</title>
+<meta name="description" content="Seminário de Governança de TI — O Balanced Scorecard (BSC) na Governança de TI frente à Transformação Digital.">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+body{margin:0;font-family:system-ui,sans-serif;font-size:14px}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<style>
+/* Layout: palco de slide em papel branco para projeção em sala escura. Trilho de progresso no topo,
+   rodapé de contexto, fundo ambiente que muda de cor conforme o bloco, entrada escalonada por elemento.
+   Identidade: canvas de consultoria — papel claro, azul-petróleo estrutural e as quatro cores do
+   scorecard como sistema de codificação do conteúdo inteiro. */
+:root{
+  color-scheme: light;
+  --paper:#FFFFFF;
+  --paper-2:#F6F9FC;
+  --paper-3:#EBF1F8;
+  --ink:#0C1622;
+  --ink-2:#33445C;
+  --muted:#64768F;
+  --faint:#9AAABF;
+  --line:#D7E1EE;
+  --line-2:#EAF0F7;
+  --navy:#123A68;
+  --gold:#A96A06;
+  --gold-soft:#FBF1DF;
+  --blue:#0A6FA6;
+  --blue-soft:#E4F2FA;
+  --violet:#5739C4;
+  --violet-soft:#EEEAFB;
+  --green:#077A51;
+  --green-soft:#E2F4EC;
+  --red:#B92F35;
+  --red-soft:#FCEAEA;
+  --block:#123A68;
+  --tint:rgba(18,58,104,.10);
+  --tint-2:rgba(18,58,104,.06);
+  --display:'Newsreader',Georgia,'Times New Roman',serif;
+  --body:'IBM Plex Sans','Helvetica Neue',Arial,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+  --gut-l:max(22px,env(safe-area-inset-left,0px));
+  --gut-r:max(22px,env(safe-area-inset-right,0px));
+  --ease:cubic-bezier(.16,.84,.24,1);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--body);font-size:19px;line-height:1.56;
+  font-optical-sizing:auto;text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;overflow:hidden;
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--paper)}
+h1,h2,h3,h4{margin:0;font-family:var(--display);font-weight:600;text-wrap:balance;letter-spacing:-.012em;
+  line-height:1.1;color:var(--ink);font-optical-sizing:auto}
+p{margin:0}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+:focus-visible{outline:2.5px solid var(--block);outline-offset:3px;border-radius:5px}
+i{font-style:normal}
+
+/* ================= CHROME ================= */
+.deck{position:fixed;inset:0;display:grid;grid-template-rows:auto 1fr auto;grid-template-columns:minmax(0,1fr);background:var(--paper)}
+.topbar{position:relative;z-index:30;display:flex;align-items:center;gap:16px;min-width:0;overflow:hidden;
+  padding:11px var(--gut-r) 11px var(--gut-l);border-bottom:1px solid var(--line-2);background:var(--paper)}
+.brandmark{display:flex;align-items:baseline;gap:10px;min-width:0}
+.brandmark b{font-family:var(--display);font-size:18px;font-weight:700;letter-spacing:-.025em;color:var(--navy);white-space:nowrap}
+.brandmark span{font-family:var(--mono);font-size:11px;letter-spacing:.17em;text-transform:uppercase;color:var(--faint);white-space:nowrap}
+.railwrap{flex:1;min-width:0;display:flex;align-items:center;gap:10px}
+.rail{flex:1;min-width:0;height:4px;background:var(--line-2);border-radius:3px;overflow:hidden}
+.rail i{display:block;height:100%;width:0;background:var(--block);border-radius:3px;transition:width .8s var(--ease),background 1s ease}
+.chip{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  padding:5px 11px;border:1px solid var(--line);border-radius:999px;color:var(--muted);white-space:nowrap;
+  min-width:0;overflow:hidden;text-overflow:ellipsis;
+  transition:color .5s ease,border-color .5s ease,background .5s ease}
+.chip.b1{color:var(--blue);border-color:#B6DDF0;background:var(--blue-soft)}
+.chip.b2{color:var(--gold);border-color:#EFD9AF;background:var(--gold-soft)}
+.chip.b3{color:var(--green);border-color:#AEE0CD;background:var(--green-soft)}
+.tools{display:flex;align-items:center;gap:7px}
+.tbtn{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+  padding:6px 10px;border:1px solid var(--line);border-radius:7px;transition:.18s;background:var(--paper)}
+.tbtn:hover{color:var(--navy);border-color:var(--navy);background:var(--paper-2)}
+.tbtn.on{color:#fff;background:var(--navy);border-color:var(--navy)}
+#clock{font-variant-numeric:tabular-nums;min-width:62px}
+
+/* ================= PALCO + AMBIENTE ================= */
+.stage{position:relative;min-height:0;overflow:hidden;background:var(--paper)}
+.stage::before{content:"";position:absolute;inset:-25%;pointer-events:none;z-index:0;
+  background:radial-gradient(45% 45% at 12% 8%,var(--tint),transparent 72%),
+             radial-gradient(42% 42% at 90% 92%,var(--tint-2),transparent 72%);
+  transition:background 1.1s ease}
+.stage::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.5;
+  background-image:radial-gradient(circle,rgba(18,58,104,.085) 1px,transparent 1.2px);
+  background-size:30px 30px}
+.slide{position:absolute;inset:0;z-index:1;overflow-y:auto;overflow-x:hidden;
+  padding:clamp(18px,3.2vh,42px) var(--gut-r) clamp(18px,3.2vh,42px) var(--gut-l);
+  opacity:0;visibility:hidden;pointer-events:none;transition:opacity .6s ease,visibility .6s}
+.slide.on{opacity:1;visibility:visible;pointer-events:auto}
+.inner{max-width:1280px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;justify-content:center;gap:clamp(14px,2.3vh,28px)}
+.inner.top{justify-content:flex-start}
+
+/* ================= ANIMAÇÕES ================= */
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes fall{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:none}}
+@keyframes side{from{opacity:0;transform:translateX(-26px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes blur{from{opacity:0;filter:blur(9px);transform:translateY(14px)}to{opacity:1;filter:blur(0);transform:none}}
+@keyframes sweep{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes glow{0%,100%{opacity:.55}50%{opacity:1}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.slide.on [data-a]{animation-duration:1.05s;animation-timing-function:var(--ease);animation-fill-mode:both;
+  animation-delay:calc(var(--i,0) * 145ms)}
+.slide.on [data-a="rise"]{animation-name:rise}
+.slide.on [data-a="fall"]{animation-name:fall}
+.slide.on [data-a="side"]{animation-name:side}
+.slide.on [data-a="pop"]{animation-name:pop}
+.slide.on [data-a="fade"]{animation-name:fade}
+.slide.on [data-a="blur"]{animation-name:blur}
+.slide.on [data-a="sweep"]{animation-name:sweep;animation-duration:1.5s}
+@media (prefers-reduced-motion:reduce){
+  .slide.on [data-a]{animation:none!important}
+  .slide{transition:none}
+  .rail i{transition:none}
+  *{scroll-behavior:auto}
+}
+
+/* ================= TIPOGRAFIA ================= */
+.eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.21em;text-transform:uppercase;color:var(--block);font-weight:500}
+h2.t{font-size:clamp(29px,4.3vw,53px);color:var(--navy);font-weight:600}
+h3.t{font-size:clamp(22px,3vw,34px)}
+.lede{font-size:clamp(17px,1.7vw,22px);color:var(--ink-2);max-width:68ch;line-height:1.6}
+.lede b{color:var(--ink);font-weight:600}
+.rule{height:1px;background:var(--line)}
+.fine{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.05em;line-height:1.6}
+
+/* ================= CAPA ================= */
+.cover{display:grid;gap:clamp(16px,3.2vh,34px)}
+.cover .kicker{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.cover h1{font-size:clamp(30px,4.3vw,55px);line-height:1.08;max-width:22ch;letter-spacing:-.02em;font-weight:600}
+.cover h1 em{font-style:normal;color:var(--gold)}
+.cover .sub{font-size:clamp(17px,1.85vw,23px);color:var(--ink-2);max-width:62ch}
+.team{display:flex;flex-wrap:wrap;gap:11px}
+.person{display:flex;align-items:center;gap:11px;padding:8px 18px 8px 8px;background:var(--paper);
+  border:1px solid var(--line);border-radius:999px;box-shadow:0 1px 2px rgba(12,22,34,.04)}
+.person i{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;flex:none;
+  font-family:var(--mono);font-size:11.5px;font-weight:600;color:#fff;background:var(--gold)}
+.person i.c{background:var(--blue)}.person i.v{background:var(--violet)}
+.person b{font-weight:500;font-size:16.5px;white-space:nowrap}
+.metaline{display:flex;flex-wrap:wrap;gap:8px 26px;font-family:var(--mono);font-size:12px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+
+/* ================= DIVISORES ================= */
+.divider .num{font-family:var(--display);font-size:clamp(84px,15vw,190px);line-height:.8;font-weight:700;
+  color:var(--block);opacity:.16;letter-spacing:-.05em}
+.divider h2{font-size:clamp(29px,5vw,56px);max-width:20ch;color:var(--navy);font-weight:600}
+.timebox{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--block);
+  border:1px solid currentColor;border-radius:9px;padding:8px 15px;align-self:flex-start}
+
+/* ================= CARDS ================= */
+.grid{display:grid;gap:clamp(11px,1.35vw,18px)}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.g5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;
+  padding:clamp(14px,1.6vw,22px);min-width:0;display:flex;flex-direction:column;gap:9px;
+  box-shadow:0 1px 2px rgba(12,22,34,.04),0 8px 24px -18px rgba(12,22,34,.22)}
+.card h4{font-family:var(--body);font-size:17px;font-weight:600;letter-spacing:-.005em;line-height:1.34}
+.card p{font-size:16px;color:var(--ink-2);line-height:1.5}
+.card .tag{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.card.flat{box-shadow:none;background:var(--paper-2);border-color:var(--line-2)}
+.card.gold{border-top:3px solid var(--gold)} .card.gold .tag{color:var(--gold)}
+.card.blue{border-top:3px solid var(--blue)} .card.blue .tag{color:var(--blue)}
+.card.violet{border-top:3px solid var(--violet)} .card.violet .tag{color:var(--violet)}
+.card.green{border-top:3px solid var(--green)} .card.green .tag{color:var(--green)}
+.card.red{border-top:3px solid var(--red)} .card.red .tag{color:var(--red)}
+.card.fill-gold{background:var(--gold-soft);border-color:#EFD9AF}
+.card.fill-blue{background:var(--blue-soft);border-color:#B6DDF0}
+.card.fill-green{background:var(--green-soft);border-color:#AEE0CD}
+.card.fill-red{background:var(--red-soft);border-color:#F1C4C5}
+
+.stat{font-family:var(--display);font-size:clamp(34px,5vw,62px);font-weight:700;line-height:.98;
+  letter-spacing:-.035em;font-variant-numeric:tabular-nums;color:var(--navy)}
+.stat.gold{color:var(--gold)}.stat.blue{color:var(--blue)}
+.stat.green{color:var(--green)}.stat.red{color:var(--red)}.stat.violet{color:var(--violet)}
+.stat small{font-size:.42em;font-weight:600;letter-spacing:-.01em}
+
+ul.ticks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+ul.ticks li{position:relative;padding-left:21px;font-size:16.5px;color:var(--ink-2);
+  line-height:1.5;min-width:0;overflow-wrap:break-word}
+ul.ticks li::before{content:"";position:absolute;left:0;top:9px;width:7px;height:7px;border-radius:50%;background:var(--block)}
+ul.ticks.gold li::before{background:var(--gold)}
+ul.ticks.blue li::before{background:var(--blue)}
+ul.ticks.green li::before{background:var(--green)}
+ul.ticks.violet li::before{background:var(--violet)}
+ul.ticks li b{color:var(--ink);font-weight:600}
+
+.quote{border-left:3px solid var(--block);padding:6px 0 6px 24px;max-width:66ch}
+.quote p{font-family:var(--display);font-size:clamp(20px,2.35vw,31px);line-height:1.34;color:var(--navy);font-weight:500}
+.quote cite{display:block;margin-top:12px;font-style:normal;font-family:var(--mono);font-size:12px;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--faint)}
+
+/* ================= RODA DAS PERSPECTIVAS ================= */
+.wheel{display:grid;grid-template-columns:1fr auto 1fr;grid-template-rows:auto auto;
+  gap:clamp(11px,1.5vw,20px);align-items:stretch}
+.wheel .hub{grid-row:1/3;align-self:center;width:clamp(120px,14vw,186px);padding:18px 14px;text-align:center;
+  background:var(--navy);border-radius:50%;aspect-ratio:1;display:grid;place-content:center;gap:5px;
+  box-shadow:0 18px 40px -22px rgba(18,58,104,.75)}
+.wheel .hub b{font-family:var(--display);font-size:clamp(16px,1.95vw,23px);line-height:1.12;color:#fff}
+.wheel .hub span{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#9EC0DC}
+.pq{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:clamp(13px,1.5vw,20px);
+  display:flex;flex-direction:column;gap:7px;min-width:0;box-shadow:0 1px 2px rgba(12,22,34,.04)}
+.pq .q{font-family:var(--display);font-size:clamp(16.5px,1.9vw,23px);line-height:1.22;color:var(--navy)}
+.pq .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:500}
+.pq p{font-size:15px;color:var(--ink-2);line-height:1.45}
+.pq.gold{border-left:4px solid var(--gold)} .pq.gold .lbl{color:var(--gold)}
+.pq.blue{border-left:4px solid var(--blue)} .pq.blue .lbl{color:var(--blue)}
+.pq.violet{border-left:4px solid var(--violet)} .pq.violet .lbl{color:var(--violet)}
+.pq.green{border-left:4px solid var(--green)} .pq.green .lbl{color:var(--green)}
+.wheel > *:nth-child(1){grid-column:1;grid-row:1}
+.wheel > *:nth-child(2){grid-column:2;grid-row:1/3}
+.wheel > *:nth-child(3){grid-column:3;grid-row:1}
+.wheel > *:nth-child(4){grid-column:1;grid-row:2}
+.wheel > *:nth-child(5){grid-column:3;grid-row:2}
+@media (max-width:780px){.wheel{grid-template-columns:1fr}
+  .wheel > *{grid-column:1!important;grid-row:auto!important}
+  .wheel .hub{justify-self:center;order:-1}}
+
+/* ================= MAPA ESTRATÉGICO ================= */
+.map{display:grid;grid-template-columns:auto 1fr;gap:clamp(11px,1.4vw,18px);align-items:stretch}
+.causerail{display:flex;flex-direction:column;align-items:center;gap:10px;padding:4px 0}
+.causerail .axis{width:3px;flex:1;border-radius:2px;
+  background:linear-gradient(to top,var(--green),var(--violet),var(--blue),var(--gold))}
+.causerail .cap{writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--mono);font-size:10px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--faint);white-space:nowrap}
+.layers{display:grid;gap:clamp(9px,1.2vh,15px);min-width:0}
+.layer{display:grid;grid-template-columns:clamp(104px,14vw,172px) 1fr;gap:clamp(9px,1.2vw,16px);
+  align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:12px;
+  padding:12px 14px;min-width:0;box-shadow:0 1px 2px rgba(12,22,34,.04)}
+.layer .name{font-family:var(--mono);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;line-height:1.4;font-weight:500}
+.layer .objs{display:flex;flex-wrap:wrap;gap:8px;min-width:0}
+.obj{font-size:15px;padding:7px 14px;border-radius:999px;background:var(--paper-2);
+  border:1px solid var(--line);color:var(--ink-2);line-height:1.3;max-width:100%;overflow-wrap:break-word}
+.layer.gold{border-left:4px solid var(--gold)} .layer.gold .name{color:var(--gold)} .layer.gold .obj{background:var(--gold-soft);border-color:#EFD9AF;color:#7A4D04}
+.layer.blue{border-left:4px solid var(--blue)} .layer.blue .name{color:var(--blue)} .layer.blue .obj{background:var(--blue-soft);border-color:#B6DDF0;color:#06527A}
+.layer.violet{border-left:4px solid var(--violet)} .layer.violet .name{color:var(--violet)} .layer.violet .obj{background:var(--violet-soft);border-color:#D5CCF5;color:#412C96}
+.layer.green{border-left:4px solid var(--green)} .layer.green .name{color:var(--green)} .layer.green .obj{background:var(--green-soft);border-color:#AEE0CD;color:#05593B}
+@media (max-width:640px){.layer{grid-template-columns:1fr}.map{grid-template-columns:1fr}.causerail{display:none}}
+
+.layer.enabling{border:1.5px dashed var(--blue);border-left:4px solid var(--blue);background:var(--blue-soft)}
+.layer.enabling .name{color:var(--blue)}
+.crosscut{margin-top:4px;border:1.5px dashed var(--green);background:var(--green-soft);border-radius:12px;
+  padding:12px 16px;display:grid;gap:5px}
+.crosscut .name{font-family:var(--mono);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--green);font-weight:500}
+.crosscut p{font-size:15px;color:#05593B;line-height:1.45}
+
+/* ================= CASCATA ================= */
+.cascade{display:grid;gap:11px}
+.crow{display:flex;align-items:stretch;gap:11px;flex-wrap:wrap}
+.cbox{flex:1;min-width:190px;background:var(--paper);border:1px solid var(--line);
+  border-radius:12px;padding:14px 16px;display:grid;gap:5px;align-content:start;box-shadow:0 1px 2px rgba(12,22,34,.04)}
+.cbox b{font-size:16px;font-weight:600}
+.cbox span{font-size:15px;color:var(--ink-2);line-height:1.45}
+.cbox.top{background:var(--gold-soft);border-color:#EFD9AF}
+.cbox.mid{background:var(--blue-soft);border-color:#B6DDF0}
+.updown{display:grid;place-items:center;font-family:var(--mono);font-size:10px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--faint);gap:1px;padding:1px 0}
+.updown .arr{color:var(--block);font-size:19px;line-height:1;animation:bob 3.8s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.updown .arr{animation:none}}
+
+/* ================= TIMELINE ================= */
+.timeline{position:relative;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;padding-top:40px}
+.timeline::before{content:"";position:absolute;top:17px;left:4%;right:4%;height:3px;background:var(--line);border-radius:2px}
+.timeline .prog{position:absolute;top:17px;left:4%;height:3px;border-radius:2px;background:var(--navy);width:92%;
+  transform-origin:left;transition:transform 2.3s var(--ease)}
+.tnode{position:relative;display:grid;gap:7px;text-align:left}
+.tnode::before{content:"";position:absolute;top:-30px;left:0;width:13px;height:13px;border-radius:50%;
+  background:var(--paper);border:3px solid var(--navy)}
+.tnode.hot::before{background:var(--gold);border-color:var(--gold)}
+.tnode .yr{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--navy);letter-spacing:.04em}
+.tnode .ev{font-size:14.5px;color:var(--ink-2);line-height:1.4}
+.tnode .ev b{color:var(--ink)}
+@media (max-width:860px){.timeline{grid-template-columns:repeat(2,minmax(0,1fr));padding-top:0}
+  .timeline::before,.timeline .prog{display:none}.tnode::before{display:none}
+  .tnode{border-left:3px solid var(--navy);padding-left:12px}}
+
+/* ================= FLUXO EM ETAPAS ================= */
+.flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));--fgap:clamp(26px,3vw,42px);
+  gap:var(--fgap);align-items:stretch}
+.step{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:14px;
+  padding:clamp(13px,1.5vw,20px);display:grid;gap:7px;align-content:start;min-width:0;
+  box-shadow:0 1px 2px rgba(12,22,34,.04)}
+.step .sn{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--faint)}
+.step h4{font-family:var(--display);font-size:clamp(17px,2vw,24px);font-weight:600;color:var(--navy);letter-spacing:-.01em}
+.step p{font-size:15px;color:var(--ink-2);line-height:1.45}
+.step .ex{font-family:var(--mono);font-size:13px;color:var(--block);background:var(--paper-2);
+  border-radius:7px;padding:7px 10px;line-height:1.4}
+.step::after{content:"›";position:absolute;right:calc(-1 * var(--fgap) / 2 - 11px);top:50%;
+  transform:translateY(-50%);z-index:2;width:22px;height:22px;border-radius:50%;background:var(--navy);
+  color:#fff;display:grid;place-items:center;font-size:15px;line-height:1;padding-bottom:2px;
+  font-family:var(--body)}
+.step:last-child::after{display:none}
+@media (max-width:860px){.flow{grid-template-columns:1fr;--fgap:34px}
+  .step::after{right:50%;top:auto;bottom:calc(-1 * var(--fgap) / 2 - 11px);transform:translateX(50%) rotate(90deg)}}
+
+/* ================= TABELA ================= */
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--paper);
+  box-shadow:0 1px 2px rgba(12,22,34,.04)}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:15px}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid var(--line-2);vertical-align:top;line-height:1.42}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+  background:var(--paper-2);position:sticky;top:0;white-space:nowrap;z-index:1}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--paper-2)}
+td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;vertical-align:1px}
+.dot.gold{background:var(--gold)}.dot.blue{background:var(--blue)}
+.dot.violet{background:var(--violet)}.dot.green{background:var(--green)}
+.goalup{color:var(--green);font-weight:600}
+.pill{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  padding:3px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.pill.lead{background:var(--green-soft);border-color:#AEE0CD;color:var(--green)}
+.pill.lag{background:var(--gold-soft);border-color:#EFD9AF;color:var(--gold)}
+
+/* ================= PAINEL EXECUTIVO ================= */
+.panel{background:var(--paper-2);border:1px solid var(--line);border-radius:18px;
+  padding:clamp(13px,1.6vw,20px);display:grid;gap:13px}
+.panelhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
+.panelhead b{font-family:var(--display);font-size:20px;color:var(--navy)}
+.panelhead span{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+.kpi{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px;display:grid;gap:8px;min-width:0;
+  box-shadow:0 1px 2px rgba(12,22,34,.04)}
+.kpi .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);line-height:1.4}
+.kpi .v{font-family:var(--display);font-size:clamp(25px,3.1vw,36px);font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.kpi .d{font-family:var(--mono);font-size:12px;color:var(--green)}
+.kpi .d.bad{color:var(--red)}
+.kpi svg{width:100%;height:34px;display:block}
+.meter{height:8px;border-radius:5px;background:var(--line-2);overflow:hidden}
+.meter i{display:block;height:100%;border-radius:5px;width:0;transition:width 1.9s var(--ease)}
+@media (max-width:880px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ================= GRÁFICO DE BARRAS ================= */
+.bars{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:clamp(8px,1.2vw,16px);
+  align-items:end;height:clamp(150px,22vh,230px);padding-top:8px}
+.bar{display:grid;gap:8px;align-content:end;justify-items:center;height:100%;grid-template-rows:1fr auto 15px;min-width:0}
+.bar .col{width:100%;max-width:78px;border-radius:8px 8px 3px 3px;align-self:end;
+  background:linear-gradient(180deg,var(--blue),#0A6FA6);height:0;transition:height 1.7s var(--ease);
+  position:relative;min-height:3px}
+.bar.accent .col{background:linear-gradient(180deg,var(--gold),#946005)}
+.bar .col em{position:absolute;top:-25px;left:0;right:0;text-align:center;font-family:var(--mono);
+  font-size:14.5px;font-weight:600;font-style:normal;color:var(--navy)}
+.bar .xl{font-family:var(--mono);font-size:13.5px;color:var(--muted);letter-spacing:.04em}
+.bar .sl{font-size:12px;color:var(--faint);text-align:center;line-height:1.3;min-height:15px}
+
+/* ================= FUNIL ================= */
+.funnel{display:grid;gap:10px;width:100%;min-width:0}
+.frow{display:grid;grid-template-columns:clamp(132px,19vw,228px) minmax(0,1fr);gap:clamp(10px,1.4vw,18px);align-items:center}
+.flabel{font-size:15px;color:var(--ink-2);line-height:1.3;min-width:0;overflow-wrap:break-word}
+.ftrack{display:flex;align-items:center;gap:12px;min-width:0}
+.fbar{height:38px;border-radius:9px;display:flex;align-items:center;justify-content:flex-end;
+  padding:0 14px;flex:none;transition:width 1.5s var(--ease);min-width:84px}
+.fbar b{font-family:var(--mono);font-size:15.5px;font-weight:600;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap}
+.fslot{display:inline-block;min-width:52px;border-bottom:2px dotted rgba(255,255,255,.7);height:17px}
+.frow:nth-child(1) .fbar{background:#0D2B4D}
+.frow:nth-child(2) .fbar{background:#123A68}
+.frow:nth-child(3) .fbar{background:#17507F}
+.frow:nth-child(4) .fbar{background:#0A6FA6}
+.frow:nth-child(5) .fbar{background:var(--green)}
+@media (max-width:620px){.frow{grid-template-columns:1fr;gap:5px}}
+
+/* ================= ROADMAP ================= */
+.road{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(11px,1.4vw,18px)}
+.phase{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:clamp(14px,1.6vw,20px);
+  display:grid;gap:10px;min-width:0;position:relative;overflow:hidden;align-content:start;
+  box-shadow:0 1px 2px rgba(12,22,34,.04)}
+.phase::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:var(--gold)}
+.phase:nth-child(2)::before{background:var(--blue)}
+.phase:nth-child(3)::before{background:var(--green)}
+.phase .ph{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--faint)}
+.phase h4{font-family:var(--display);font-size:clamp(18px,2.1vw,25px);font-weight:600;letter-spacing:-.012em;color:var(--navy)}
+.phase ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.phase li{font-size:15px;color:var(--ink-2);line-height:1.45;padding-left:17px;position:relative}
+.phase li::before{content:"—";position:absolute;left:0;color:var(--faint)}
+
+/* ================= CONTRASTE DE IDIOMAS ================= */
+.contrast{display:grid;grid-template-columns:1fr auto 1fr;gap:clamp(10px,1.6vw,22px);align-items:stretch}
+.cpane{display:grid;gap:10px;align-content:start;min-width:0}
+.ptag{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  padding:5px 12px;border-radius:999px;justify-self:start}
+.ptag.red{background:var(--red-soft);color:var(--red);border:1px solid #F1C4C5}
+.ptag.blue{background:var(--blue-soft);color:var(--blue);border:1px solid #B6DDF0}
+.tiles,.bubbles{display:grid;gap:8px;min-width:0}
+.tile{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--paper-2);
+  border:1px solid var(--line);border-radius:9px;padding:10px 14px;min-width:0}
+.tile i{font-family:var(--mono);font-size:12.5px;color:var(--muted);letter-spacing:.03em;min-width:0;overflow-wrap:break-word}
+.tile b{font-family:var(--mono);font-size:15.5px;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+.bub{background:var(--blue-soft);border:1px solid #B6DDF0;color:#06527A;border-radius:15px 15px 15px 5px;
+  padding:12px 17px;font-size:16px;line-height:1.35;min-width:0;overflow-wrap:break-word}
+.gapmark{align-self:center;display:grid;place-items:center;gap:8px;text-align:center}
+.gapmark .brk{font-size:32px;color:var(--red);line-height:1}
+.gapmark .lb{font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--faint);writing-mode:vertical-rl;transform:rotate(180deg)}
+@media (max-width:820px){.contrast{grid-template-columns:1fr}
+  .gapmark .lb{writing-mode:horizontal-tb;transform:none}}
+
+/* ================= CRONOGRAMA ================= */
+.gantt{display:grid;gap:9px;min-width:0;--gcol:clamp(132px,19vw,210px)}
+.ghead{display:grid;grid-template-columns:var(--gcol) repeat(3,1fr);gap:9px;align-items:end}
+.ghead span{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);
+  text-align:center;padding-bottom:6px;border-bottom:2px solid var(--line);min-width:0}
+.ghead span:first-child{border:none}
+.grow{display:grid;grid-template-columns:var(--gcol) repeat(12,minmax(0,1fr));gap:0 4px;align-items:center}
+.gname{font-size:15px;color:var(--ink-2);line-height:1.3;min-width:0;padding-right:10px;overflow-wrap:break-word}
+.gbar{height:33px;border-radius:8px;display:flex;align-items:center;padding:0 13px;
+  font-family:var(--mono);font-size:11.5px;color:#fff;white-space:nowrap;overflow:hidden;min-width:0}
+.gbar.p1{background:var(--gold)}.gbar.p2{background:var(--blue)}.gbar.p3{background:var(--green)}
+@media (max-width:760px){.ghead{display:none}
+  .grow{grid-template-columns:1fr;gap:5px}
+  .gbar{grid-column:1/-1!important}}
+
+/* ================= PIN DO QUIZ ================= */
+.pinbox{font-family:var(--mono)!important;font-size:clamp(20px,2.6vw,28px)!important;font-weight:600;
+  color:var(--green)!important;letter-spacing:.14em;background:var(--green-soft);border:1px dashed #8ACFB4;
+  border-radius:9px;padding:9px 14px;text-align:center}
+.podio{display:grid;gap:9px}
+.pline{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;
+  border-bottom:1px dashed var(--line);padding:11px 2px}
+.pline .pos{font-family:var(--display);font-size:clamp(22px,2.8vw,30px);font-weight:700;line-height:1;width:46px}
+.pline .nm{font-family:var(--mono);font-size:14px;color:var(--faint);letter-spacing:.1em}
+
+/* ================= QUIZ ================= */
+.quiz{display:grid;gap:clamp(13px,2.1vh,22px);max-width:960px;width:100%;margin:0 auto}
+.qhead{display:flex;align-items:center;gap:13px;flex-wrap:wrap}
+.qnum{font-family:var(--mono);font-size:12px;letter-spacing:.17em;text-transform:uppercase;color:var(--green);
+  border:1px solid #AEE0CD;background:var(--green-soft);border-radius:999px;padding:6px 13px}
+.qtext{font-family:var(--display);font-size:clamp(24px,3.1vw,37px);line-height:1.2;color:var(--navy);font-weight:600;text-wrap:balance}
+.opts{display:grid;gap:10px}
+.opt{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;text-align:left;
+  background:var(--paper);border:1.5px solid var(--line);border-radius:12px;padding:14px 18px;
+  font-size:17px;color:var(--ink-2);line-height:1.4;transition:.18s var(--ease);width:100%;
+  box-shadow:0 1px 2px rgba(12,22,34,.04)}
+.opt:hover:not(.locked){border-color:var(--navy);background:var(--paper-2);color:var(--ink);transform:translateX(4px)}
+.opt .key{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--muted);
+  width:28px;height:28px;display:grid;place-items:center;border:1.5px solid var(--line);border-radius:8px;flex:none}
+.opt .mk{font-family:var(--mono);font-size:15px;opacity:0;transition:opacity .3s}
+.opt.right{border-color:var(--green);background:var(--green-soft);color:var(--ink);animation:pop .7s var(--ease)}
+.opt.right .key{color:#fff;background:var(--green);border-color:var(--green)}
+.opt.right .mk{opacity:1;color:var(--green)}
+.opt.wrong{border-color:var(--red);background:var(--red-soft)}
+.opt.wrong .key{color:#fff;background:var(--red);border-color:var(--red)}
+.opt.wrong .mk{opacity:1;color:var(--red)}
+.opt.locked{cursor:default;transform:none}
+.opt.dim{opacity:.5}
+.why{display:none;border-left:3px solid var(--green);padding:10px 0 10px 20px;font-size:16.5px;
+  color:var(--ink-2);line-height:1.55;max-width:74ch}
+.why.show{display:block;animation:rise .8s var(--ease) both}
+.why b{color:var(--ink)}
+
+/* ================= NOTAS / MAPA ================= */
+.notes{position:fixed;left:var(--gut-l);right:var(--gut-r);bottom:calc(52px + env(safe-area-inset-bottom,0px));
+  z-index:40;background:var(--navy);color:#DCE9F5;border-radius:12px;
+  padding:14px 18px;font-size:15.5px;line-height:1.5;max-width:1280px;margin:0 auto;
+  box-shadow:0 20px 50px -24px rgba(12,22,34,.6)}
+.notes b{color:#F0C070;font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:5px}
+.overview{position:fixed;inset:0;z-index:50;background:rgba(255,255,255,.985);overflow-y:auto;
+  padding:calc(20px + env(safe-area-inset-top,0px)) var(--gut-r) calc(20px + env(safe-area-inset-bottom,0px)) var(--gut-l)}
+.ovgrid{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.ovhead{max-width:1280px;margin:0 auto 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.ovitem{text-align:left;background:var(--paper);border:1px solid var(--line);border-radius:11px;padding:12px 14px;
+  display:grid;gap:5px;transition:.16s;min-width:0}
+.ovitem:hover{border-color:var(--navy);background:var(--paper-2);transform:translateY(-2px)}
+.ovitem .n{font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:.1em}
+.ovitem .l{font-size:14.5px;line-height:1.3;color:var(--ink)}
+.ovitem.cur{border-color:var(--navy);background:var(--paper-3)}
+.ovitem[data-b="1"] .n{color:var(--blue)}
+.ovitem[data-b="2"] .n{color:var(--gold)}
+.ovitem[data-b="3"] .n{color:var(--green)}
+
+/* ================= RODAPÉ ================= */
+.botbar{position:relative;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:10px var(--gut-r) calc(10px + env(safe-area-inset-bottom,0px)) var(--gut-l);
+  border-top:1px solid var(--line-2);background:var(--paper)}
+.botbar .who{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nav{display:flex;align-items:center;gap:9px;flex:none}
+.nbtn{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--line);border-radius:9px;
+  color:var(--muted);font-size:17px;transition:.16s;background:var(--paper)}
+.nbtn:hover{border-color:var(--navy);color:var(--navy);background:var(--paper-2)}
+.count{font-family:var(--mono);font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums;letter-spacing:.06em}
+
+@media (max-width:760px){
+  .g5,.g4,.g3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .road{grid-template-columns:1fr}
+  .brandmark span{display:none}
+  .botbar .who{display:none}
+  #blockchip{display:none}
+  .bars{grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+}
+@media (max-width:500px){
+  .g5,.g4,.g3,.g2{grid-template-columns:1fr}
+  .tbtn{padding:6px 8px}
+  body{font-size:16px}
+}
+
+/* ===== telas baixas: projetores 1280x720 e 1024x768 ===== */
+@media (max-height:830px){
+  .slide{padding-block:clamp(13px,2.1vh,26px)}
+  .inner{gap:clamp(10px,1.7vh,19px)}
+  h2.t{font-size:clamp(24px,3.5vw,40px)}
+  .lede{font-size:clamp(14.5px,1.35vw,17.5px);line-height:1.55}
+  .card{padding:clamp(11px,1.25vw,16px);gap:7px}
+  .card p{font-size:13.8px;line-height:1.45}
+  .card h4{font-size:14.8px}
+  ul.ticks{gap:7px}
+  ul.ticks li{font-size:14px;line-height:1.42}
+  th,td{padding:7px 12px}
+  table{font-size:13px}
+  .quote p{font-size:clamp(17px,1.9vw,24px)}
+  .gbar{height:25px}
+  .gantt{gap:7px}
+  .fbar{height:32px}
+  .funnel{gap:8px}
+  .kpi{padding:11px;gap:6px}
+  .kpi svg{height:28px}
+  .kpi .v{font-size:clamp(20px,2.4vw,26px)}
+  .panel{padding:clamp(11px,1.3vw,15px);gap:10px}
+  .step{padding:clamp(11px,1.25vw,16px)}
+  .phase{padding:clamp(11px,1.3vw,16px)}
+  .bub{padding:9px 14px;font-size:13.8px}
+  .tile{padding:8px 12px}
+  .stat{font-size:clamp(28px,4vw,46px)}
+  .pq{padding:clamp(11px,1.25vw,16px)}
+  .layer{padding:9px 12px}
+  .obj{font-size:12.8px;padding:6px 11px}
+  .tablewrap{max-height:52vh;overflow:auto}
+  .crosscut{padding:9px 14px}
+  .crosscut p{font-size:13.5px}
+  h3.t{font-size:clamp(18px,2.2vw,25px)}
+}
+@media (max-height:780px){
+  .gbar{height:22px}
+  .gantt{gap:5px}
+  .gname{font-size:13.5px}
+  th,td{padding:6px 11px}
+  table{font-size:12.8px}
+  .inner{gap:clamp(9px,1.5vh,16px)}
+}
+@media (max-height:700px){
+  .slide{padding-block:11px}
+  .inner{gap:clamp(8px,1.4vh,14px)}
+  h2.t{font-size:clamp(22px,3vw,32px)}
+  .lede{font-size:14px;line-height:1.5}
+  .card p,ul.ticks li{font-size:13.2px}
+  .eyebrow{font-size:10.5px}
+  .gbar{height:24px}
+  .fbar{height:29px}
+  .stat{font-size:clamp(25px,3.4vw,38px)}
+  .quote p{font-size:clamp(16px,1.7vw,21px)}
+  th,td{padding:7px 11px}
+  table{font-size:12.6px}
+}
+
+/* ================= QUIZ AO VIVO ================= */
+.aovivo{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  padding:11px 16px;border:1px solid var(--line);border-radius:12px;background:var(--paper-2);margin-bottom:4px}
+.aovivo .cnt{font-family:var(--mono);font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.aovivo .cnt.cheio{color:var(--green);font-weight:600}
+.aovivo .revelar{font-family:var(--body);font-size:14px;font-weight:600;color:#fff;background:var(--navy);
+  border-radius:9px;padding:9px 16px;display:inline-flex;align-items:center;transition:.15s}
+.aovivo .revelar:hover{background:#0D2B4D}
+.aovivo kbd{font-family:var(--mono);font-size:11px;background:rgba(255,255,255,.22);
+  border-radius:5px;padding:2px 6px;margin-left:2px}
+.aovivo.fim .revelar{opacity:.4;pointer-events:none}
+.top5{display:flex;flex-wrap:wrap;align-items:center;gap:9px;min-height:0}
+.top5:empty{display:none}
+.top5 .rot{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.top5 .l{font-size:15px;background:var(--paper-2);border:1px solid var(--line);border-radius:999px;
+  padding:7px 14px;color:var(--ink-2)}
+.top5 .l b{color:var(--navy);font-family:var(--mono);font-size:13px;margin-right:5px}
+.top5 .l i{font-family:var(--mono);font-style:normal;font-weight:600;color:var(--green);margin-left:6px;
+  font-variant-numeric:tabular-nums}
+.opt[data-live="1"]:hover:not(.locked){transform:none;border-color:var(--line);background:var(--paper)}
+@media (max-height:860px){
+  .quiz{gap:12px}
+  .aovivo{padding:8px 14px;margin-bottom:0}
+  .opt{padding:11px 16px;font-size:16px}
+  .why{font-size:15px;padding:8px 0 8px 17px}
+  .qtext{font-size:clamp(20px,2.5vw,29px)}
+  .top5 .l{padding:5px 12px;font-size:14px}
+}
+@media (max-height:790px){
+  .quiz{gap:9px}
+  .aovivo{padding:6px 13px}
+  .aovivo .cnt{font-size:13px}
+  .aovivo .revelar{padding:7px 13px;font-size:13px}
+  .opt{padding:8px 14px;font-size:15px;min-height:0}
+  .opt .key{width:24px;height:24px;font-size:12px}
+  .why{font-size:13.5px;line-height:1.45;padding:6px 0 6px 15px}
+  .qtext{font-size:clamp(18px,2.2vw,25px)}
+  .qhead{gap:9px}
+  .top5{gap:6px}
+  .top5 .l{padding:4px 10px;font-size:13px}
+}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+  <header class="topbar">
+    <div class="brandmark"><b>BSC</b><span>Governança de TI · UNIME 2026.2</span></div>
+    <div class="railwrap"><div class="rail"><i id="rail"></i></div><span class="chip" id="blockchip">Abertura</span></div>
+    <div class="tools">
+      <button class="tbtn" id="clock" title="Cronômetro (T)">00:00</button>
+      <button class="tbtn" id="btnNotes" title="Notas do apresentador (N)">Notas</button>
+      <button class="tbtn" id="btnOv" title="Mapa da apresentação (O)">Mapa</button>
+    </div>
+  </header>
+
+  <main class="stage" id="stage">
+
+    <!-- 01 CAPA -->
+    <section class="slide" data-b="0" data-label="Capa" data-note="Os três em pé, de frente para a turma. Abre com a provocação, não com o título: 'o que vocês mediriam hoje para provar que a TI de vocês vale o que custa?'. Quem abre passa a palavra com uma pergunta, não com um nome.">
+      <div class="inner cover">
+        <div class="kicker" data-a="fall">
+          <span class="chip b2">Seminário · 2ª Etapa</span>
+          <span class="chip">Tema 01 de 05</span>
+        </div>
+        <h1 data-a="blur">O <em>Balanced Scorecard (BSC)</em> na Governança de TI frente à Transformação Digital: Uma Revisão Sistemática da Literatura</h1>
+        <p class="sub" data-a="rise">Como medir o valor daquilo que não aparece no balanço.</p>
+        <div class="rule" data-a="sweep"></div>
+        <div class="team" data-a="rise">
+          <span class="person"><i>MS</i><b>Murilo de Souza</b></span>
+          <span class="person"><i class="c">JB</i><b>João Pedro Bastian</b></span>
+          <span class="person"><i class="v">TF</i><b>Tiffani</b></span>
+        </div>
+        <div class="metaline" data-a="fade">
+          <span>Sistemas de Informação</span><span>Governança de TI</span><span>Semestre 2026.2</span><span>60 minutos</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 AGENDA -->
+    <section class="slide" data-b="0" data-label="Como vai funcionar" data-note="Explicar o contrato da sessão em 60 segundos. Avisar que o terceiro bloco vale ponto de participação — isso prende a plateia desde já.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">Contrato da sessão</p><h2 class="t">Três blocos, um fio condutor</h2></div>
+        <p class="lede" data-a="rise">Sessenta minutos, vinte para cada parte. Saímos do conceito para a decisão e terminamos validando o que ficou.</p>
+        <div class="grid g3">
+          <div class="card blue" data-a="rise"><span class="tag">Parte 01 · 20 min</span><h4>Apresentação teórica</h4><p>Conceitos, características, formas de aplicação, os nomes da área no Brasil e no exterior e o que o mercado discute hoje.</p></div>
+          <div class="card gold" data-a="rise"><span class="tag">Parte 02 · 20 min</span><h4>Pitch executivo</h4><p>Assumimos o papel de consultoria, sem slides de tópicos: mapa, painel e protótipo aplicados a um cenário real.</p></div>
+          <div class="card green" data-a="rise"><span class="tag">Parte 03 · 20 min</span><h4>Gamificação e fechamento</h4><p>Quiz competitivo no Kahoot com cinco questões, pódio apurado na hora e pontuação extra de participação.</p></div>
+        </div>
+        <div class="quote" data-a="rise">
+          <p>O que se mede, se gerencia. O que não se mede, se discute.</p>
+          <cite>Síntese do princípio de Kaplan e Norton</cite>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 PROVOCAÇÃO -->
+    <section class="slide" data-b="0" data-label="O valor saiu do balanço" data-note="Deixar os números subirem na tela em silêncio. Diálogo: um lança a pergunta à plateia — 'onde está o valor da empresa em que vocês trabalham?' — e outro responde com o dado de 2020, emendando no terceiro card.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">O ponto de partida</p><h2 class="t">O valor saiu do balanço</h2></div>
+        <div class="grid g3">
+          <div class="card" data-a="rise"><span class="tag">S&amp;P 500 · 1975</span><p class="stat"><span data-count="83" data-suffix="%">83%</span></p><p>do valor de mercado estava em <b style="color:var(--ink)">ativos tangíveis</b>: fábrica, estoque, frota, imóveis.</p></div>
+          <div class="card gold" data-a="rise"><span class="tag">S&amp;P 500 · 2020</span><p class="stat gold"><span data-count="90" data-suffix="%">90%</span></p><p>do valor de mercado está em <b style="color:var(--ink)">ativos intangíveis</b>: dados, software, marca, capacidade digital.</p></div>
+          <div class="card red" data-a="rise"><span class="tag">A consequência</span><p class="stat red"><span data-count="0">0</span></p><p>linhas do balanço contábil tradicional explicam o retorno de uma plataforma de dados ou de um modelo de IA.</p></div>
+        </div>
+        <p class="lede" data-a="rise">A contabilidade continua medindo o século XX. A governança de TI precisa de um instrumento que traduza investimento digital em linguagem de conselho — e é exatamente esse o problema que o Balanced Scorecard se propôs a resolver.</p>
+        <p class="fine" data-a="fade">Fonte: Ocean Tomo, Intangible Asset Market Value Study.</p>
+      </div>
+    </section>
+
+    <!-- 04 DIVISOR 1 -->
+    <section class="slide" data-b="1" data-label="◆ Parte 1 — Teoria" data-note="Transição de ritmo. A partir daqui o formato é painel: quem está com a palavra levanta o conceito e passa adiante com uma pergunta ao colega, nunca anunciando de quem é a parte.">
+      <div class="inner divider">
+        <p class="num" data-a="pop">01</p>
+        <div data-a="rise"><p class="eyebrow">Parte 01 · Apresentação teórica</p><h2>Do painel de controle da estratégia ao scorecard de TI</h2></div>
+        <p class="lede" data-a="rise">Origem, anatomia, tradução para a governança de TI, convivência com os demais frameworks e o estado da arte de 2021 a 2026.</p>
+        <span class="timebox" data-a="rise">⏱ Parte 01 · 20 minutos, contando a abertura</span>
+      </div>
+    </section>
+
+    <!-- 05 GESTÃO POR RETROVISOR -->
+    <section class="slide" data-b="1" data-label="Gestão por retrovisor" data-note="Puxar exemplo concreto: cortar treinamento melhora o resultado deste ano e destrói o do próximo. Todo mundo já viu isso acontecer.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">1.1 · Por que o BSC existe</p><h2 class="t">Gestão por retrovisor</h2></div>
+        <p class="lede" data-a="rise">Até o início dos anos 1990, desempenho organizacional era avaliado quase só por indicadores financeiros. Eles têm três defeitos estruturais.</p>
+        <div class="grid g3">
+          <div class="card" data-a="rise"><span class="tag">Defeito 01</span><h4>São retrospectivos</h4><p>Contam o que já aconteceu. Quando o resultado financeiro piora, a causa ocorreu dois ou três trimestres antes.</p></div>
+          <div class="card" data-a="rise"><span class="tag">Defeito 02</span><h4>Ignoram o intangível</h4><p>Competência da equipe, qualidade do dado e confiança do cliente não têm conta contábil que os represente.</p></div>
+          <div class="card" data-a="rise"><span class="tag">Defeito 03</span><h4>Premiam o curto prazo</h4><p>Cortar treinamento, manutenção e modernização melhora o resultado deste ano e compromete o dos próximos.</p></div>
+        </div>
+        <div class="rule" data-a="sweep"></div>
+        <p class="lede" data-a="rise">Na TI o efeito foi direto: a área virou centro de custo. Era fácil medir quanto se gastava e quase impossível demonstrar o que se gerava.</p>
+      </div>
+    </section>
+
+    <!-- 06 PARADOXO -->
+    <section class="slide" data-b="1" data-label="Paradoxo da produtividade" data-note="Robert Solow, Nobel de Economia. A frase é de 1987 e abriu três décadas de pesquisa sobre medição de valor da TI.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">1.2 · O problema histórico</p><h2 class="t">O paradoxo da produtividade da TI</h2></div>
+        <div class="quote" data-a="blur">
+          <p>Vemos a era dos computadores em toda parte, menos nas estatísticas de produtividade.</p>
+          <cite>Robert Solow · Prêmio Nobel de Economia, 1987</cite>
+        </div>
+        <div class="grid g3">
+          <div class="card flat" data-a="rise"><span class="tag">O sintoma</span><h4>Investimento sem evidência</h4><p>Bilhões aplicados em sistemas sem efeito mensurável nos indicadores agregados de produtividade.</p></div>
+          <div class="card flat" data-a="rise"><span class="tag">A explicação</span><h4>Defasagem e complementaridade</h4><p>O retorno da TI depende de mudanças em processo, estrutura e competência — e só aparece anos depois.</p></div>
+          <div class="card flat" data-a="rise"><span class="tag">A implicação</span><h4>Medir a cadeia, não o gasto</h4><p>Se o valor vem da combinação, o instrumento de medição precisa capturar a cadeia inteira.</p></div>
+        </div>
+        <p class="lede" data-a="rise">O Balanced Scorecard nasce em 1992 justamente como resposta a esse tipo de problema: medir aquilo que produz o resultado, e não apenas o resultado.</p>
+      </div>
+    </section>
+
+    <!-- 07 LINHA DO TEMPO -->
+    <section class="slide" data-b="1" data-label="Linha do tempo 1992–2026" data-note="Marcar a evolução: 1992 sistema de medição → 1996 sistema de gestão → 2004 mapa estratégico. O BSC cresceu de ferramenta para método.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">1.3 · Evolução</p><h2 class="t">De sistema de medição a sistema de gestão</h2></div>
+        <div class="timeline" data-a="fade">
+          <span class="prog" id="tlprog"></span>
+          <div class="tnode" data-a="rise"><span class="yr">1992</span><span class="ev"><b>O artigo na HBR.</b> Kaplan e Norton propõem quatro perspectivas equilibradas.</span></div>
+          <div class="tnode" data-a="rise"><span class="yr">1996</span><span class="ev"><b>O livro.</b> O BSC passa a comunicar e executar estratégia, não só medir.</span></div>
+          <div class="tnode" data-a="rise"><span class="yr">1997</span><span class="ev"><b>IT BSC.</b> Van Grembergen e Van Bruggen adaptam o modelo à área de TI.</span></div>
+          <div class="tnode" data-a="rise"><span class="yr">2004</span><span class="ev"><b>Mapa estratégico.</b> Formaliza a conversão de intangível em resultado.</span></div>
+          <div class="tnode" data-a="rise"><span class="yr">2012</span><span class="ev"><b>COBIT 5.</b> A cascata de objetivos incorpora as dimensões do BSC.</span></div>
+          <div class="tnode hot" data-a="rise"><span class="yr">2021–26</span><span class="ev"><b>Nosso recorte.</b> BSC reencontra o problema do ativo digital intangível.</span></div>
+        </div>
+        <div class="quote" data-a="rise">
+          <p>O scorecard não é um conjunto de indicadores. É a tradução da estratégia em uma cadeia de hipóteses de causa e efeito.</p>
+          <cite>Síntese de Kaplan &amp; Norton · 1996 e 2004</cite>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 AS 4 PERSPECTIVAS -->
+    <section class="slide" data-b="1" data-label="As quatro perspectivas" data-note="Cada perspectiva é uma PERGUNTA, não um departamento. Esse é o ponto que mais confunde — reforçar com ênfase.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">1.4 · Anatomia</p><h2 class="t">Quatro perguntas, um equilíbrio</h2></div>
+        <div class="wheel">
+          <div class="pq gold" data-a="side"><span class="lbl">Financeira</span><p class="q">Como somos vistos pelos acionistas?</p><p>Rentabilidade, crescimento de receita, retorno sobre o capital investido.</p></div>
+          <div class="hub" data-a="pop" style="--i:0"><b>Visão e Estratégia</b><span>Núcleo</span></div>
+          <div class="pq blue" data-a="side"><span class="lbl">Cliente</span><p class="q">Como somos vistos pelos clientes?</p><p>Satisfação, retenção, participação de mercado, proposta de valor percebida.</p></div>
+          <div class="pq violet" data-a="side"><span class="lbl">Processos Internos</span><p class="q">Em que precisamos ser excelentes?</p><p>Qualidade, ciclo de entrega, produtividade e inovação de processo.</p></div>
+          <div class="pq green" data-a="side"><span class="lbl">Aprendizado e Crescimento</span><p class="q">Como sustentamos a capacidade de mudar?</p><p>Pessoas, cultura, sistemas de informação e alinhamento organizacional.</p></div>
+        </div>
+        <p class="lede" data-a="rise">O equilíbrio é entre financeiro e não financeiro, interno e externo, resultado passado e desempenho futuro.</p>
+      </div>
+    </section>
+
+    <!-- 09 ANATOMIA / FLUXO -->
+    <section class="slide" data-b="1" data-label="Objetivo → iniciativa" data-note="Aqui mora o erro mais comum das empresas: param no indicador e nunca chegam na iniciativa. Indicador sem iniciativa é termômetro sem remédio.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">1.5 · A unidade mínima</p><h2 class="t">Todo objetivo se escreve em quatro movimentos</h2></div>
+        <div class="flow">
+          <div class="step" data-a="rise"><span class="sn">Movimento 01</span><h4>Objetivo</h4><p>O que a organização quer alcançar, em linguagem de negócio.</p><span class="ex">Tornar o canal digital o preferido do cliente</span></div>
+          <div class="step" data-a="rise"><span class="sn">Movimento 02</span><h4>Indicador</h4><p>Como saberemos que o objetivo está sendo alcançado.</p><span class="ex">Conversão do aplicativo</span></div>
+          <div class="step" data-a="rise"><span class="sn">Movimento 03</span><h4>Meta</h4><p>Quanto basta, com prazo definido e linha de base real.</p><span class="ex">1,4% → 3,2% em 12 meses</span></div>
+          <div class="step" data-a="rise"><span class="sn">Movimento 04</span><h4>Iniciativa</h4><p>O projeto que será executado e quem responde por ele.</p><span class="ex">Redesenho do fluxo de compra</span></div>
+        </div>
+        <p class="lede" data-a="rise">Sem a quarta coluna, o scorecard vira relatório. <b>Indicador sem iniciativa é termômetro sem remédio</b> — mede a febre e não trata o paciente.</p>
+      </div>
+    </section>
+
+    <!-- 10 MAPA ESTRATÉGICO -->
+    <section class="slide" data-b="1" data-label="Mapa estratégico" data-note="Ler o mapa de baixo para cima, em voz alta, como uma frase única. É a demonstração mais convincente de todo o bloco teórico.">
+      <div class="inner top">
+        <div data-a="rise"><p class="eyebrow">1.6 · Causa e efeito</p><h2 class="t">O mapa estratégico lê-se de baixo para cima</h2></div>
+        <div class="map">
+          <div class="causerail" data-a="fade" style="--i:0"><span class="cap">causa → efeito</span><span class="axis"></span></div>
+          <div class="layers">
+            <div class="layer gold" data-a="side" style="--i:5"><span class="name">Financeira</span><div class="objs"><span class="obj">Crescer receita digital</span><span class="obj">Reduzir custo por transação</span></div></div>
+            <div class="layer blue" data-a="side" style="--i:4"><span class="name">Cliente</span><div class="objs"><span class="obj">Experiência sem atrito</span><span class="obj">Confiança no uso do dado</span></div></div>
+            <div class="layer violet" data-a="side" style="--i:3"><span class="name">Processos</span><div class="objs"><span class="obj">Entrega contínua e segura</span><span class="obj">Qualidade do dado na origem</span></div></div>
+            <div class="layer green" data-a="side" style="--i:2"><span class="name">Aprendizado</span><div class="objs"><span class="obj">Competência em dados e IA</span><span class="obj">Cultura de produto</span></div></div>
+          </div>
+        </div>
+        <p class="lede" data-a="rise" style="--i:7">Pessoas capacitadas sustentam processos confiáveis, que produzem uma experiência que o cliente valoriza, que por sua vez gera receita. Cada seta é uma <b>hipótese testável</b> — e é isso que separa estratégia de intenção.</p>
+      </div>
+    </section>
+
+    <!-- 11 LEAD x LAG -->
+    <section class="slide" data-b="1" data-label="Lead e lag" data-note="Pergunta rápida antes de revelar: 'disponibilidade é lead ou lag?'. Resposta: lag para a TI, lead para o negócio. Mostra que depende da camada do mapa.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">1.7 · Balanceamento</p><h2 class="t">Indicadores de resultado e de tendência</h2></div>
+        <div class="grid g2">
+          <div class="card gold" data-a="side">
+            <span class="tag">Lag · indicadores de resultado</span>
+            <h4>Confirmam se a estratégia funcionou</h4>
+            <ul class="ticks gold" style="margin-top:4px"><li>Receita do canal digital</li><li>ROI do portfólio de projetos</li><li>Participação de mercado</li></ul>
+            <p style="margin-top:6px">Confiáveis e auditáveis, porém tardios. Chegam quando não há mais o que corrigir naquele ciclo.</p>
+          </div>
+          <div class="card green" data-a="side">
+            <span class="tag">Lead · indicadores de tendência</span>
+            <h4>Antecipam o resultado</h4>
+            <ul class="ticks green" style="margin-top:4px"><li>Frequência de implantação</li><li>Percentual de domínios de dado com dono</li><li>Horas de capacitação por pessoa</li></ul>
+            <p style="margin-top:6px">Acionáveis no presente, mas só valem se a relação de causa com o resultado estiver explícita no mapa.</p>
+          </div>
+        </div>
+        <p class="lede" data-a="rise">Um scorecard só de resultado é um retrovisor. Um scorecard só de tendência é um painel sem destino. O equilíbrio entre os dois é literalmente o <b>balanced</b> do nome.</p>
+      </div>
+    </section>
+
+    <!-- 12 QUANTOS INDICADORES -->
+    <section class="slide" data-b="1" data-label="Quantos indicadores" data-note="Número prático que o pessoal adora anotar: entre 15 e 25 no scorecard corporativo, distribuídos nas quatro perspectivas.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">1.8 · Regra prática</p><h2 class="t">Quantos indicadores cabem num scorecard</h2></div>
+        <div class="grid g4">
+          <div class="card gold" data-a="pop"><span class="tag">Financeira</span><p class="stat gold"><span data-count="5" data-suffix=" a 6">5 a 6</span></p><p>Indicadores de resultado, geralmente já existentes na controladoria.</p></div>
+          <div class="card blue" data-a="pop"><span class="tag">Cliente</span><p class="stat blue"><span data-count="5" data-suffix=" a 6">5 a 6</span></p><p>Misturam percepção declarada e comportamento observado.</p></div>
+          <div class="card violet" data-a="pop"><span class="tag">Processos</span><p class="stat violet"><span data-count="6" data-suffix=" a 8">6 a 8</span></p><p>A perspectiva mais numerosa: é onde a operação acontece.</p></div>
+          <div class="card green" data-a="pop"><span class="tag">Aprendizado</span><p class="stat green"><span data-count="4" data-suffix=" a 6">4 a 6</span></p><p>A mais negligenciada, e justamente a que sustenta todas as outras.</p></div>
+        </div>
+        <p class="lede" data-a="rise">Entre <b>20 e 25 indicadores</b> no scorecard corporativo. Acima disso, nada é prioridade: o painel vira inventário e a reunião de gestão vira leitura de relatório.</p>
+        <div class="quote" data-a="rise"><p>Se você tem mais de vinte e cinco indicadores, você não tem uma estratégia — tem uma lista de desejos.</p><cite>Advertência recorrente na literatura de implantação</cite></div>
+      </div>
+    </section>
+
+    <!-- 13 DO BSC AO IT BSC -->
+    <section class="slide" data-b="1" data-label="Do BSC ao IT BSC" data-note="Van Grembergen e De Haes, Universidade de Antuérpia — referência internacional central do nosso artigo.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">1.9 · A tradução</p><h2 class="t">As mesmas quatro perguntas, feitas à área de TI</h2></div>
+        <div class="grid g4">
+          <div class="card gold" data-a="rise"><span class="tag">Financeira →</span><h4>Contribuição Corporativa</h4><p>Como a diretoria enxerga o valor entregue pela TI? Retorno dos investimentos, controle orçamentário, valor de negócio gerado.</p></div>
+          <div class="card blue" data-a="rise"><span class="tag">Cliente →</span><h4>Orientação ao Usuário</h4><p>Como as áreas de negócio enxergam a TI? Satisfação, parceria, aderência da solução à necessidade real.</p></div>
+          <div class="card violet" data-a="rise"><span class="tag">Processos →</span><h4>Excelência Operacional</h4><p>Quão eficiente e confiável é a entrega? Disponibilidade, prazo, qualidade e custo unitário de serviço.</p></div>
+          <div class="card green" data-a="rise"><span class="tag">Aprendizado →</span><h4>Orientação Futura</h4><p>A TI está preparada para o que vem? Competências, arquitetura e capacidade de absorver novas tecnologias.</p></div>
+        </div>
+        <p class="lede" data-a="rise">A adaptação é de Van Grembergen e Van Bruggen (1997). A mudança não é cosmética: o <b>cliente</b> da TI passa a ser o negócio, e o <b>financeiro</b> passa a ser a percepção de valor da diretoria.</p>
+      </div>
+    </section>
+
+    <!-- 14 CASCATA -->
+    <section class="slide" data-b="1" data-label="Cascata de scorecards" data-note="Essa é a resposta para 'como a TI conversa com o conselho'. O scorecard estratégico de TI é o tradutor entre dois idiomas.">
+      <div class="inner top">
+        <div data-a="rise"><p class="eyebrow">1.10 · Arquitetura</p><h2 class="t">A cascata que conecta o rack à sala do conselho</h2></div>
+        <div class="cascade">
+          <div class="crow" data-a="rise" style="--i:4"><div class="cbox top"><b>Balanced Scorecard Corporativo</b><span>Linguagem do conselho: receita, margem, risco e reputação.</span></div></div>
+          <div class="updown" data-a="fade" style="--i:3"><span class="arr">↑</span><span>alimenta</span></div>
+          <div class="crow" data-a="rise" style="--i:2"><div class="cbox mid"><b>IT Strategic Balanced Scorecard</b><span>Consolida a TI em quatro perspectivas e traduz entrega técnica em valor de negócio.</span></div></div>
+          <div class="updown" data-a="fade" style="--i:1"><span class="arr">↑</span><span>consolida</span></div>
+          <div class="crow" data-a="rise" style="--i:0">
+            <div class="cbox"><b>IT Development BSC</b><span>Projetos e novos produtos: prazo, escopo, qualidade e valor entregue.</span></div>
+            <div class="cbox"><b>IT Operational BSC</b><span>Serviços em produção: disponibilidade, incidentes e custo por serviço.</span></div>
+          </div>
+        </div>
+        <p class="lede" data-a="rise" style="--i:6">Nenhum indicador sobe sozinho. Cada nível resume o anterior, e o alinhamento estratégico deixa de ser discurso para virar <b>estrutura de medição</b>.</p>
+      </div>
+    </section>
+
+    <!-- 15 ALINHAMENTO ESTRATÉGICO -->
+    <section class="slide" data-b="1" data-label="Alinhamento estratégico" data-note="Henderson e Venkatraman, 1993 — modelo clássico de alinhamento estratégico, anterior ao IT BSC e base teórica dele.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">1.11 · Base teórica</p><h2 class="t">O alinhamento é bidirecional</h2></div>
+        <p class="lede" data-a="rise">O Strategic Alignment Model de Henderson e Venkatraman (1993) mostra que o encaixe entre negócio e TI acontece em dois eixos simultâneos. O BSC é o instrumento que torna esse encaixe mensurável.</p>
+        <div class="grid g2">
+          <div class="card blue" data-a="side"><span class="tag">Eixo 01 · Ajuste estratégico</span><h4>Estratégia e infraestrutura</h4><p>A estratégia declarada precisa estar sustentada por processos, competências e arquitetura que a tornem executável. Sem isso, a estratégia é uma apresentação.</p></div>
+          <div class="card violet" data-a="side"><span class="tag">Eixo 02 · Integração funcional</span><h4>Negócio e tecnologia</h4><p>Domínio de negócio e domínio de TI precisam se influenciar nos dois sentidos. A TI não só executa a estratégia: ela também habilita estratégias que não existiriam sem ela.</p></div>
+        </div>
+        <div class="grid g3">
+          <div class="card flat" data-a="rise"><span class="tag">Implicação 01</span><h4>TI como parceira</h4><p>O papel muda de fornecedora interna para corresponsável pelo resultado.</p></div>
+          <div class="card flat" data-a="rise"><span class="tag">Implicação 02</span><h4>Medição compartilhada</h4><p>Se o resultado é compartilhado, o indicador também precisa ser.</p></div>
+          <div class="card flat" data-a="rise"><span class="tag">Implicação 03</span><h4>Governança como estrutura</h4><p>Alinhamento não acontece por boa vontade: depende de fórum, papel e rito definidos.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 16 COBIT -->
+    <section class="slide" data-b="1" data-label="COBIT 2019 e o BSC" data-note="Ponto forte do artigo: o framework mais usado de governança de TI organiza seus objetivos exatamente nas dimensões do BSC. Isso não é coincidência.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">1.12 · Dentro do framework</p><h2 class="t">O COBIT já fala em scorecard</h2></div>
+        <p class="lede" data-a="rise">Na cascata de objetivos do COBIT 2019, os 13 objetivos corporativos e os 13 objetivos de alinhamento são organizados justamente nas quatro dimensões do Balanced Scorecard.</p>
+        <div class="flow">
+          <div class="step" data-a="rise"><span class="sn">Etapa 01</span><h4>Necessidades das partes interessadas</h4><p>O que acionistas, clientes e reguladores esperam da organização.</p></div>
+          <div class="step" data-a="rise"><span class="sn">Etapa 02</span><h4>Objetivos corporativos</h4><p>Treze objetivos distribuídos nas quatro dimensões do BSC.</p><span class="ex">EG01 a EG13</span></div>
+          <div class="step" data-a="rise"><span class="sn">Etapa 03</span><h4>Objetivos de alinhamento</h4><p>Treze objetivos que traduzem o corporativo para a linguagem de TI.</p><span class="ex">AG01 a AG13</span></div>
+          <div class="step" data-a="rise"><span class="sn">Etapa 04</span><h4>Objetivos de governança e gestão</h4><p>Os processos que serão efetivamente implantados e medidos.</p></div>
+        </div>
+        <p class="lede" data-a="rise">O BSC não é concorrente do COBIT. Ele é a <b>gramática de medição</b> que o COBIT adotou para ligar necessidade de negócio a processo de TI.</p>
+      </div>
+    </section>
+
+    <!-- 17 FRAMEWORKS -->
+    <section class="slide" data-b="1" data-label="BSC e os frameworks" data-note="Ponto de conexão com os outros quatro seminários da turma: governança de dados com IA, ISO 27001, CMMI e BPM.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">1.13 · Convivência</p><h2 class="t">O BSC não substitui os frameworks. Ele os mede.</h2></div>
+        <div class="grid g5">
+          <div class="card" data-a="pop"><span class="tag">COBIT 2019</span><h4>Cascata de objetivos</h4><p>Fornece a estrutura de governança; o BSC fornece a leitura de desempenho.</p></div>
+          <div class="card" data-a="pop"><span class="tag">ITIL 4</span><h4>Operação de serviço</h4><p>Abastece a perspectiva de excelência operacional com indicadores de serviço.</p></div>
+          <div class="card" data-a="pop"><span class="tag">ISO 27001</span><h4>Segurança da informação</h4><p>Conformidade técnica vira objetivo de scorecard, com indicador e meta próprios.</p></div>
+          <div class="card" data-a="pop"><span class="tag">CMMI</span><h4>Maturidade de processo</h4><p>Eleva a capacidade de entrega — e o scorecard evidencia se virou resultado.</p></div>
+          <div class="card" data-a="pop"><span class="tag">BPM</span><h4>Orquestração de processos</h4><p>Conecta os processos de negócio aos de TI na perspectiva interna.</p></div>
+        </div>
+        <div class="quote" data-a="rise"><p>Frameworks dizem como fazer certo. O scorecard responde se fazer isso valeu a pena.</p><cite>Síntese do grupo</cite></div>
+      </div>
+    </section>
+
+    <!-- 18 AUTORES -->
+    <section class="slide" data-b="1" data-label="Quem sustenta o campo" data-note="Diálogo entre as duas colunas: um nomeia os autores internacionais, outro responde com os equivalentes nacionais e explica que a lista saiu da contagem de citações cruzadas, não de opinião.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">1.14 · Referências do campo</p><h2 class="t">Quem sustenta a discussão</h2></div>
+        <div class="grid g2">
+          <div class="card blue" data-a="side">
+            <span class="tag">Cenário internacional</span>
+            <ul class="ticks blue" style="margin-top:4px">
+              <li><b>Robert Kaplan e David Norton</b> — Harvard Business School. Criadores do BSC e do mapa estratégico.</li>
+              <li><b>Wim Van Grembergen e Steven De Haes</b> — Universidade de Antuérpia. IT BSC e governança corporativa de TI.</li>
+              <li><b>Peter Weill e Jeanne Ross</b> — MIT CISR. Arranjos de decisão e desempenho em governança de TI.</li>
+              <li><b>John Henderson e N. Venkatraman</b> — Strategic Alignment Model, base conceitual do alinhamento.</li>
+              <li><b>ISACA</b> — mantenedora do COBIT, que incorpora a lógica do scorecard na cascata de objetivos.</li>
+            </ul>
+          </div>
+          <div class="card gold" data-a="side">
+            <span class="tag">Cenário nacional</span>
+            <ul class="ticks gold" style="margin-top:4px">
+              <li><b>Aguinaldo Aragon Fernandes e Vladimir Ferraz de Abreu</b> — referência brasileira na implantação de governança de TI.</li>
+              <li><b>Emílio Herrero Filho</b> — adaptação do BSC à gestão estratégica no contexto brasileiro.</li>
+              <li><b>Produção acadêmica nacional</b> — concentrada em estudos de caso no setor público, bancário e em instituições de ensino.</li>
+              <li><b>Padrão observado</b> — forte aplicação prática e menor volume de validação empírica longitudinal.</li>
+            </ul>
+          </div>
+        </div>
+        <p class="fine" data-a="fade">Mapeamento em consolidação na pesquisa bibliométrica do artigo — mínimo de 20 publicações catalogadas com nacionalidade, ano e contagem de citações.</p>
+      </div>
+    </section>
+
+    <!-- 19 BIBLIOMETRIA -->
+    <section class="slide" data-b="1" data-label="Bibliometria do recorte" data-note="Números reais do nosso levantamento. Diálogo: um lê a distribuição por ano e aponta a concentração em 2025; outro emenda com o dado que mais importa — metade do corpus é revisão de literatura, e só cinco trabalhos têm dado empírico de organização.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">1.15 · Pesquisa bibliométrica</p><h2 class="t">O que encontramos no recorte 2021–2026</h2></div>
+        <div class="bars" data-a="fade">
+          <div class="bar"><div class="col" data-h="45"><em>3</em></div><span class="xl">2021</span><span class="sl"></span></div>
+          <div class="bar"><div class="col" data-h="16"><em>1</em></div><span class="xl">2022</span><span class="sl"></span></div>
+          <div class="bar"><div class="col" data-h="73"><em>5</em></div><span class="xl">2023</span><span class="sl"></span></div>
+          <div class="bar"><div class="col" data-h="73"><em>5</em></div><span class="xl">2024</span><span class="sl"></span></div>
+          <div class="bar accent"><div class="col" data-h="100"><em>7</em></div><span class="xl">2025</span><span class="sl"></span></div>
+          <div class="bar"><div class="col" data-h="45"><em>3</em></div><span class="xl">2026</span><span class="sl">parcial</span></div>
+        </div>
+        <div class="grid g4">
+          <div class="card flat" data-a="rise"><span class="tag">Catalogadas</span><p class="stat"><span data-count="24">24</span></p><p>Acima do mínimo de 20 exigido no roteiro.</p></div>
+          <div class="card flat" data-a="rise"><span class="tag">Revisões de literatura</span><p class="stat blue"><span data-count="12">12</span></p><p>Metade do corpus apenas mapeia o campo.</p></div>
+          <div class="card flat" data-a="rise"><span class="tag">Com dado empírico</span><p class="stat red"><span data-count="5">5</span></p><p>Só um quinto testa o modelo em organizações reais.</p></div>
+          <div class="card flat" data-a="rise"><span class="tag">Estrato nacional</span><p class="stat" style="color:var(--faint)">—</p><p>Em levantamento no SciELO e no Portal CAPES.</p></div>
+        </div>
+        <p class="lede" data-a="rise">O achado que sustenta nosso artigo não é o volume, é a composição: <b>o campo produz muito mapeamento e pouca verificação</b>. Metade das publicações revisa o que outros escreveram, e quase nenhuma acompanha um scorecard real ao longo do tempo.</p>
+        <p class="fine" data-a="fade">Levantamento próprio por busca nas bases e rastreamento de citações a partir das revisões localizadas. Estrato nacional em complementação.</p>
+      </div>
+    </section>
+
+    <!-- 19b CATÁLOGO BIBLIOMÉTRICO -->
+    <section class="slide" data-b="1" data-label="Catálogo bibliométrico" data-note="Mostrar que o catálogo segue exatamente o modelo de sete colunas do roteiro. Diálogo: um explica a estrutura da tabela, outro demonstra a contagem de citações cruzadas com um exemplo do quadro.">
+      <div class="inner top">
+        <div data-a="rise"><p class="eyebrow">1.16 · Catalogação</p><h2 class="t">Como as publicações estão sendo tabuladas</h2></div>
+        <div class="tablewrap" data-a="rise">
+          <table>
+            <thead><tr><th>Item</th><th>Título</th><th>Autor(es)</th><th>Nacionalidade</th><th>Ano Publicação</th><th>Disponível em</th><th>Número Citações</th></tr></thead>
+            <tbody>
+              <tr><td class="num">01</td><td>Extending the Balanced Scorecard for AI-Driven and Sustainable Digital Transformation</td><td>Turisová; Kádárová</td><td>Internacional</td><td class="num">2026</td><td>doi.org/10.3390/su18179192</td><td class="num">—</td></tr>
+              <tr><td class="num">02</td><td>Balanced scorecard: trends, developments, and future directions</td><td>Kumar; Lim; Sureka; Jabbour; Bamel</td><td>Internacional</td><td class="num">2024</td><td>doi.org/10.1007/s11846-023-00700-6</td><td class="num">—</td></tr>
+              <tr><td class="num">03</td><td>Evolution and Perspectives in IT Governance: A Systematic Literature Review</td><td>Vaya-Arboledas; Ferrer-Oliva; Medina-Merodio</td><td>Internacional</td><td class="num">2025</td><td>doi.org/10.3390/computers14120520</td><td class="num">—</td></tr>
+              <tr><td class="num">04</td><td>Digital Balanced Scorecard System as a Supporting Strategy for Digital Transformation</td><td>Fabac</td><td>Internacional</td><td class="num">2022</td><td>Sustainability, v. 14, art. 9690</td><td class="num">—</td></tr>
+              <tr><td class="num">…</td><td colspan="6" style="color:var(--faint)">24 registros catalogados até aqui. Planilha completa entregue com o artigo.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="grid g2">
+          <div class="card blue" data-a="rise"><span class="tag">Como contamos as citações</span><h4>Cruzamento das referências</h4><p>Copiamos as referências de cada publicação coletada e contamos quantas vezes os demais artigos do corpus aparecem entre elas.</p></div>
+          <div class="card gold" data-a="rise"><span class="tag">Para que serve a contagem</span><h4>Revela quem é referência</h4><p>Os mais citados dentro do próprio corpus são os nomes de referência do tema — foi assim que montamos a lista do slide anterior.</p></div>
+        </div>
+        <p class="fine" data-a="fade">Estrutura conforme o modelo de sete colunas do roteiro. A tabela completa consta do artigo.</p>
+      </div>
+    </section>
+
+    <!-- 20 O QUE MUDOU -->
+    <section class="slide" data-b="1" data-label="O que mudou 2021–2026" data-note="Explicar por que um modelo de 1992 voltou à pauta: o que mudou foi a natureza do ativo, não a necessidade de medir.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">1.17 · Recorte</p><h2 class="t">Por que um modelo de 1992 voltou à pauta</h2></div>
+        <div class="grid g4">
+          <div class="card" data-a="rise"><span class="tag">Nuvem e FinOps</span><h4>O custo virou variável</h4><p>O gasto de TI deixou de ser investimento previsível e passou a oscilar com o uso, exigindo medição contínua de valor por real gasto.</p></div>
+          <div class="card" data-a="rise"><span class="tag">Engenharia</span><h4>Métricas de entrega padronizadas</h4><p>A perspectiva de processos ganhou um conjunto de indicadores comparável entre organizações.</p></div>
+          <div class="card" data-a="rise"><span class="tag">IA generativa</span><h4>Ativo sem contabilidade</h4><p>Modelos, bases de conhecimento e prompts geram valor real sem conta no balanço: o caso extremo do intangível.</p></div>
+          <div class="card" data-a="rise"><span class="tag">Risco e ESG</span><h4>Nova cobrança do conselho</h4><p>Segurança, privacidade e sustentabilidade entram no scorecard como objetivos, não como anexo de conformidade.</p></div>
+        </div>
+        <p class="lede" data-a="rise">A transformação digital não tornou o BSC obsoleto. Ela deslocou o objeto da medição: o que precisa ser mensurado hoje é majoritariamente <b>intangível, compartilhado entre áreas e de efeito retardado</b>.</p>
+      </div>
+    </section>
+
+    <!-- 21 DORA -->
+    <section class="slide" data-b="1" data-label="Métricas de entrega" data-note="As quatro métricas DORA, de Forsgren, Humble e Kim. Entraram no vocabulário executivo e alimentam a perspectiva de processos.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">1.18 · Instrumentação moderna</p><h2 class="t">A perspectiva de processos ganhou padrão</h2></div>
+        <p class="lede" data-a="rise">As quatro métricas de entrega consolidadas pela pesquisa DORA deram à excelência operacional um conjunto de indicadores objetivo e comparável entre organizações.</p>
+        <div class="grid g4">
+          <div class="card violet" data-a="pop"><span class="tag">Velocidade</span><h4>Frequência de implantação</h4><p>Com que frequência a organização coloca mudança em produção com segurança.</p></div>
+          <div class="card violet" data-a="pop"><span class="tag">Velocidade</span><h4>Lead time de mudança</h4><p>Quanto tempo leva do commit até a mudança estar rodando em produção.</p></div>
+          <div class="card violet" data-a="pop"><span class="tag">Estabilidade</span><h4>Taxa de falha em mudanças</h4><p>Qual percentual das implantações causa degradação ou exige correção imediata.</p></div>
+          <div class="card violet" data-a="pop"><span class="tag">Estabilidade</span><h4>Tempo de restauração</h4><p>Quanto tempo a organização leva para restabelecer o serviço após uma falha.</p></div>
+        </div>
+        <p class="lede" data-a="rise">O ponto para a governança: essas métricas são <b>indicadores de tendência</b>. Sozinhas não provam valor — provam capacidade. Elas precisam estar amarradas por uma seta do mapa a um objetivo de cliente e de resultado financeiro.</p>
+      </div>
+    </section>
+
+    <!-- 21b BSC ESTENDIDO -->
+    <section class="slide" data-b="1" data-label="O BSC estendido (2026)" data-note="Esta é a fronteira da pesquisa e a referência mais recente do nosso corpus. Diálogo: um apresenta a camada habilitadora e pergunta qual a diferença para a perspectiva de aprendizado; outro responde com a distinção entre desenvolver recurso e usar recurso; o terceiro fecha com a dimensão transversal.">
+      <div class="inner top">
+        <div data-a="rise"><p class="eyebrow">1.19 · Fronteira da pesquisa</p><h2 class="t">O BSC estendido para IA e transformação digital</h2></div>
+        <p class="lede" data-a="rise">Turisová e Kádárová (2026) mantêm as quatro perspectivas clássicas e acrescentam <b>dois componentes com papéis arquiteturais distintos</b> — não uma quinta e uma sexta perspectiva.</p>
+        <div class="map">
+          <div class="causerail" data-a="fade" style="--i:0"><span class="cap">causa → efeito</span><span class="axis"></span></div>
+          <div class="layers">
+            <div class="layer gold" data-a="side" style="--i:5"><span class="name">Financeira</span><div class="objs"><span class="obj">Valor econômico e para o stakeholder</span></div></div>
+            <div class="layer blue" data-a="side" style="--i:4"><span class="name">Cliente</span><div class="objs"><span class="obj">Confiança e experiência digital</span></div></div>
+            <div class="layer violet" data-a="side" style="--i:3"><span class="name">Processos Internos</span><div class="objs"><span class="obj">Eficiência, qualidade e automação</span></div></div>
+            <div class="layer enabling" data-a="side" style="--i:2"><span class="name">Camada habilitadora</span><div class="objs"><span class="obj">Capacidade de decisão e inovação com IA</span></div></div>
+            <div class="layer green" data-a="side" style="--i:1"><span class="name">Aprendizado</span><div class="objs"><span class="obj">Competências, dados e prontidão tecnológica</span></div></div>
+          </div>
+        </div>
+        <div class="crosscut" data-a="rise" style="--i:7">
+          <span class="name">Dimensão transversal · atravessa as quatro perspectivas</span>
+          <p><b>Governança digital sustentável:</b> alinhamento com ESG, IA responsável, cibersegurança, resiliência, governança de dados e supervisão humana.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 21c A REGRA DA FUNÇÃO PRIMÁRIA -->
+    <section class="slide" data-b="1" data-label="Desenvolver x aplicar" data-note="O ponto mais fino do bloco teórico. Diálogo: um dá o exemplo do treinamento em IA e pergunta onde ele entra; outro responde que treinar é aprendizado e usar é camada habilitadora; o terceiro explica que a regra existe porque na prática as atividades se misturam.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">1.20 · O refinamento conceitual</p><h2 class="t">Ter o recurso não é o mesmo que usar o recurso</h2></div>
+        <p class="lede" data-a="rise">A crítica central ao BSC tradicional, segundo os autores, é que ele não separa o <b>desenvolvimento</b> de recursos do seu <b>uso institucionalizado</b>. Ter analistas formados não produz decisão melhor sozinho.</p>
+        <div class="grid g4">
+          <div class="card green" data-a="rise"><span class="tag">Pertence a Aprendizado</span><h4>Desenvolver o recurso</h4><p>Treinamento, letramento em IA, gestão do conhecimento e prontidão tecnológica. Responde: que competências a organização possui?</p></div>
+          <div class="card blue" data-a="rise"><span class="tag">Pertence à camada habilitadora</span><h4>Converter em decisão</h4><p>Uso repetido de IA, analytics e dados nas rotinas de decisão, experimentação e inovação. Responde: o quanto a organização converte isso em ação?</p></div>
+          <div class="card violet" data-a="rise"><span class="tag">Pertence a Processos</span><h4>Colher o efeito operacional</h4><p>Tempo de ciclo, produtividade, qualidade, flexibilidade e redução de defeito permanecem resultados de processo.</p></div>
+          <div class="card" data-a="rise" style="border-top:3px solid var(--green)"><span class="tag" style="color:var(--green)">Pertence à governança</span><h4>Definir as condições</h4><p>Princípios, responsabilidades, controles e critérios sob os quais a transformação digital é escolhida e revisada.</p></div>
+        </div>
+        <div class="quote" data-a="rise"><p>A distinção é entre desenvolvimento de recurso e aplicação de recurso.</p><cite>Turisová e Kádárová · Sustainability, 2026</cite></div>
+      </div>
+    </section>
+
+    <!-- 22 A LACUNA -->
+    <section class="slide" data-b="1" data-label="A lacuna do artigo" data-note="Ler a lacuna exatamente como está no roteiro do professor. É o elo direto entre o seminário e o artigo.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">1.21 · O artigo</p><h2 class="t">A lacuna que vamos preencher</h2></div>
+        <div class="card fill-gold" data-a="blur" style="padding:clamp(14px,1.9vw,26px)">
+          <span class="tag" style="color:var(--gold)">Lacuna identificada no recorte 2021–2026</span>
+          <h3 class="t" style="color:#7A4D04;max-width:26ch">Escassez de frameworks que mensurem o valor financeiro e operacional de ativos digitais intangíveis.</h3>
+        </div>
+        <div class="grid g3">
+          <div class="card" data-a="rise"><span class="tag">O que já existe</span><h4>Arquitetura conceitual</h4><p>O modelo estendido de 2026 já propõe como medir capacidade de IA e governança digital dentro do scorecard.</p></div>
+          <div class="card" data-a="rise"><span class="tag">Como foi avaliado</span><h4>Painel de 14 especialistas</h4><p>Validação de conteúdo por julgamento de especialistas, com 87% de avaliações positivas na arquitetura proposta.</p></div>
+          <div class="card fill-red" data-a="rise"><span class="tag" style="color:var(--red)">O que falta</span><h4>Confirmação empírica</h4><p>Os próprios autores afirmam que as relações de causa e efeito são <b>derivadas teoricamente</b>, não confirmadas com dados de organizações.</p></div>
+        </div>
+        <p class="lede" data-a="rise">E há um detalhe que fecha o argumento: <b>13 dos 37 indicadores propostos precisaram de refinamento</b>, justamente os de IA e governança — por falta de definição operacional, de fonte de dado e de fronteira organizacional. Ou seja, mesmo a fronteira da literatura ainda não sabe <b>como medir na prática</b> o ativo digital intangível.</p>
+      </div>
+    </section>
+
+    <!-- 23 METODOLOGIA -->
+    <section class="slide" data-b="1" data-label="Metodologia RBS" data-note="Apresentar o protocolo, não os números. Diálogo: um lê a string de busca em voz alta, outro explica por que o recorte começa em 2021 e o terceiro mostra onde entram os critérios de exclusão. Preencher as contagens do funil depois de rodar as strings em cada base.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">1.22 · Método</p><h2 class="t">Revisão Bibliográfica Sistemática Integrativa</h2></div>
+        <div class="grid g2" style="align-items:start">
+          <div class="card" data-a="side">
+            <span class="tag">Protocolo de busca</span>
+            <ul class="ticks" style="margin-top:4px">
+              <li><b>Bases:</b> Scopus, IEEE Xplore, Google Acadêmico, SciELO e Portal de Periódicos CAPES.</li>
+              <li><b>String:</b> <span style="font-family:var(--mono);font-size:12.5px">("balanced scorecard") AND ("IT governance" OR "governança de TI") AND ("digital transformation" OR "intangible assets")</span></li>
+              <li><b>Inclusão:</b> publicações de 2021 a 2026, revisadas por pares, com aplicação ou avaliação empírica.</li>
+              <li><b>Exclusão:</b> duplicatas, resumos expandidos e trabalhos sem acesso ao texto completo.</li>
+              <li><b>Catalogação:</b> mínimo de 20 publicações, nas sete colunas do roteiro da disciplina.</li>
+            </ul>
+          </div>
+          <div class="card" data-a="side">
+            <span class="tag">Etapas de seleção</span>
+            <div class="funnel" style="margin-top:6px">
+              <div class="frow"><span class="flabel">Identificação nas bases</span><span class="ftrack"><span class="fbar" data-w="100"><b><span class="fslot"></span></b></span></span></div>
+              <div class="frow"><span class="flabel">Remoção de duplicatas</span><span class="ftrack"><span class="fbar" data-w="82"><b><span class="fslot"></span></b></span></span></div>
+              <div class="frow"><span class="flabel">Triagem por título e resumo</span><span class="ftrack"><span class="fbar" data-w="62"><b><span class="fslot"></span></b></span></span></div>
+              <div class="frow"><span class="flabel">Elegibilidade por texto completo</span><span class="ftrack"><span class="fbar" data-w="44"><b><span class="fslot"></span></b></span></span></div>
+              <div class="frow"><span class="flabel">Incluídos na revisão</span><span class="ftrack"><span class="fbar" data-w="30"><b><span class="fslot"></span></b></span></span></div>
+            </div>
+            <p class="fine" style="margin-top:8px">Contagens preenchidas após a execução das strings em cada base.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 24 DIVISOR 2 -->
+    <section class="slide" data-b="2" data-label="◆ Parte 2 — Pitch" data-note="Mudança de registro: a partir daqui somos a consultoria, não estudantes. Vinte minutos cronometrados. Nenhum slide de tópicos nesta parte — tudo é mapa, painel ou cronograma, e a fala é alternada em diálogo.">
+      <div class="inner divider">
+        <p class="num" data-a="pop">02</p>
+        <div data-a="rise"><p class="eyebrow">Parte 02 · Pitch Executivo</p><h2>A partir daqui, somos a consultoria contratada</h2></div>
+        <p class="lede" data-a="rise">Um cliente real, um conselho impaciente e trinta minutos para transformar investimento digital em argumento de valor.</p>
+        <span class="timebox" data-a="rise">⏱ Parte 02 · 20 minutos · cenário aplicado</span>
+      </div>
+    </section>
+
+    <!-- 25 O CLIENTE -->
+    <section class="slide" data-b="2" data-label="O cliente: VERTTA" data-note="Falar como quem já conhece a empresa, no presente do indicativo. Diálogo: um apresenta o cliente, outro corta com a fala do presidente do conselho lendo a citação em voz alta.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">2.1 · Briefing</p><h2 class="t">VERTTA Varejo S.A.</h2></div>
+        <p class="lede" data-a="rise">Rede varejista com 180 lojas no Nordeste e operação de e-commerce própria. Em 2023 aprovou o maior programa de transformação digital da sua história. Em 2026, o conselho quer saber onde ele foi parar.</p>
+        <div class="grid g4">
+          <div class="card" data-a="pop"><span class="tag">Faturamento anual</span><p class="stat">R$ <span data-count="2.1" data-dec="1">2,1</span><small> bi</small></p><p>180 lojas físicas e um aplicativo próprio.</p></div>
+          <div class="card gold" data-a="pop"><span class="tag">Investido em digital · 3 anos</span><p class="stat gold">R$ <span data-count="62">62</span><small> mi</small></p><p>Nuvem, aplicativo, plataforma de dados e um piloto de IA para recomendação.</p></div>
+          <div class="card" data-a="pop"><span class="tag">Participação do canal digital</span><p class="stat"><span data-count="11" data-suffix="%">11%</span></p><p>Contra a meta de 25% prometida ao conselho na aprovação do programa.</p></div>
+          <div class="card red" data-a="pop"><span class="tag">Prazo do CIO</span><p class="stat red"><span data-count="1">1</span></p><p>Uma reunião de conselho para justificar a continuidade do programa.</p></div>
+        </div>
+        <div class="quote" data-a="rise"><p>Vocês me mostram disponibilidade de 99,9% todo mês. Eu só quero saber uma coisa: os 62 milhões voltaram?</p><cite>Presidente do conselho · reunião de abertura</cite></div>
+      </div>
+    </section>
+
+    <!-- 26 DIAGNÓSTICO -->
+    <section class="slide" data-b="2" data-label="Diagnóstico" data-note="Cada sintoma precisa soar como algo que a plateia já viu acontecer. Diálogo: alternar os sintomas entre as três vozes e deixar o card do diagnóstico para quem falou por último.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">2.2 · Diagnóstico</p><h2 class="t">Cinco sintomas, uma só doença</h2></div>
+        <div class="grid g3">
+          <div class="card" data-a="rise"><span class="tag">Sintoma 01</span><h4>Relatório técnico, plateia executiva</h4><p>O comitê recebe 47 indicadores de infraestrutura e nenhum indicador de valor de negócio.</p></div>
+          <div class="card" data-a="rise"><span class="tag">Sintoma 02</span><h4>Projeto sem dono de resultado</h4><p>A TI responde pela entrega do aplicativo. Ninguém responde pela adoção dele.</p></div>
+          <div class="card" data-a="rise"><span class="tag">Sintoma 03</span><h4>Dado sem confiança</h4><p>Três definições de "cliente ativo" circulam entre marketing, loja e e-commerce.</p></div>
+          <div class="card" data-a="rise"><span class="tag">Sintoma 04</span><h4>Fila de prioridade política</h4><p>A ordem dos projetos segue a hierarquia de quem pede, não o valor do que entrega.</p></div>
+          <div class="card" data-a="rise"><span class="tag">Sintoma 05</span><h4>Capacidade não medida</h4><p>A empresa comprou plataforma de dados e não formou quem a usasse.</p></div>
+          <div class="card fill-gold" data-a="rise" style="justify-content:center">
+            <span class="tag" style="color:var(--gold)">A doença</span>
+            <h4 style="font-family:var(--display);font-size:clamp(17px,2.1vw,22px);line-height:1.22;color:#7A4D04">A VERTTA mede o que é fácil de contar, não o que determina o resultado.</h4>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 27 DOIS IDIOMAS (visual) -->
+    <section class="slide" data-b="2" data-label="A lacuna de tradução" data-note="Deixar o painel da esquerda na tela em silêncio por três segundos antes de revelar a coluna da direita. Diálogo: um lê dois indicadores técnicos em tom burocrático, outro responde com a pergunta do conselho, o terceiro fecha dizendo que nenhum dos dois lados está errado.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">2.3 · A raiz</p><h2 class="t">Dois idiomas na mesma reunião</h2></div>
+        <div class="contrast">
+          <div class="cpane" data-a="side">
+            <span class="ptag red">Painel que a TI leva</span>
+            <div class="tiles">
+              <span class="tile"><i>Disponibilidade</i><b>99,92%</b></span>
+              <span class="tile"><i>Chamados no prazo</i><b>312</b></span>
+              <span class="tile"><i>Cargas migradas</i><b>64%</b></span>
+              <span class="tile"><i>Latência do app</i><b>240 ms</b></span>
+              <span class="tile"><i>Sprints concluídas</i><b>18 / 18</b></span>
+            </div>
+          </div>
+          <div class="gapmark" data-a="pop"><span class="brk">⇎</span><span class="lb">sem tradução</span></div>
+          <div class="cpane" data-a="side">
+            <span class="ptag blue">Perguntas que o conselho faz</span>
+            <div class="bubbles">
+              <span class="bub">Quanto da receita veio do canal digital?</span>
+              <span class="bub">Quanto caiu o custo para atender um pedido?</span>
+              <span class="bub">Qual foi o retorno dos R$ 62 milhões?</span>
+              <span class="bub">O que perdemos se pararmos agora?</span>
+              <span class="bub">Qual é o próximo gargalo e quanto custa?</span>
+            </div>
+          </div>
+        </div>
+        <p class="lede" data-a="rise">Nenhum indicador da esquerda está errado. Eles simplesmente <b>não respondem a nenhuma pergunta da direita</b> — e é essa lacuna de tradução que o scorecard existe para fechar.</p>
+      </div>
+    </section>
+
+    <!-- 28 MAPA DA VERTTA -->
+    <section class="slide" data-b="2" data-label="Mapa estratégico da VERTTA" data-note="Ponto alto do pitch, reservar 3 minutos. Ler a cadeia inteira em voz alta, de baixo para cima, como uma única frase, e depois pausar. Se o tempo apertar, os slides que podem cair são a análise de sensibilidade e as armadilhas de implantação.">
+      <div class="inner top">
+        <div data-a="rise"><p class="eyebrow">2.4 · A intervenção</p><h2 class="t">O mapa estratégico da VERTTA</h2></div>
+        <div class="map">
+          <div class="causerail" data-a="fade" style="--i:0"><span class="cap">causa → efeito</span><span class="axis"></span></div>
+          <div class="layers">
+            <div class="layer gold" data-a="side" style="--i:5"><span class="name">Contribuição Corporativa</span><div class="objs"><span class="obj">Canal digital em 25% da receita</span><span class="obj">Custo por pedido −30%</span><span class="obj">Retorno do programa ≥ 18% a.a.</span></div></div>
+            <div class="layer blue" data-a="side" style="--i:4"><span class="name">Orientação ao Usuário</span><div class="objs"><span class="obj">Compra em até 3 toques</span><span class="obj">Estoque único loja e app</span><span class="obj">Recomendação que o cliente aprova</span></div></div>
+            <div class="layer violet" data-a="side" style="--i:3"><span class="name">Excelência Operacional</span><div class="objs"><span class="obj">Entrega semanal em produção</span><span class="obj">Catálogo de dados com dono</span><span class="obj">Incidente crítico resolvido em 1h</span></div></div>
+            <div class="layer green" data-a="side" style="--i:2"><span class="name">Orientação Futura</span><div class="objs"><span class="obj">Squads com analista de dados</span><span class="obj">Trilha de IA aplicada ao varejo</span><span class="obj">Arquitetura de API aberta</span></div></div>
+          </div>
+        </div>
+        <p class="lede" data-a="rise" style="--i:7">Squads capacitados sustentam uma esteira confiável de entrega, que viabiliza a experiência unificada entre loja e aplicativo, que converte em receita digital e custo menor por pedido. <b>É essa frase, e não a planilha, que o conselho compra.</b></p>
+      </div>
+    </section>
+
+    <!-- 29 SCORECARD -->
+    <section class="slide" data-b="2" data-label="O scorecard proposto" data-note="Não ler a tabela linha a linha. Escolher duas linhas e aprofundar: custo por pedido e domínios de dado com dono.">
+      <div class="inner top">
+        <div data-a="rise"><p class="eyebrow">2.5 · Instrumentação</p><h2 class="t">O scorecard que vai à mesa do conselho</h2></div>
+        <div class="tablewrap" data-a="rise">
+          <table>
+            <thead><tr><th>Perspectiva</th><th>Objetivo</th><th>Indicador</th><th>Hoje</th><th>Meta 12m</th><th>Tipo</th></tr></thead>
+            <tbody>
+              <tr><td><span class="dot gold"></span>Contribuição</td><td>Receita digital relevante</td><td>Participação do canal digital</td><td class="num">11%</td><td class="num goalup">25%</td><td><span class="pill lag">Lag</span></td></tr>
+              <tr><td><span class="dot gold"></span>Contribuição</td><td>Eficiência da operação digital</td><td>Custo por pedido processado</td><td class="num">R$ 14,80</td><td class="num goalup">R$ 10,30</td><td><span class="pill lag">Lag</span></td></tr>
+              <tr><td><span class="dot blue"></span>Usuário</td><td>Experiência sem atrito</td><td>Conversão do aplicativo</td><td class="num">1,4%</td><td class="num goalup">3,2%</td><td><span class="pill lag">Lag</span></td></tr>
+              <tr><td><span class="dot blue"></span>Usuário</td><td>Confiança do negócio na TI</td><td>Satisfação das áreas com entregas</td><td class="num">6,1</td><td class="num goalup">8,5</td><td><span class="pill lead">Lead</span></td></tr>
+              <tr><td><span class="dot violet"></span>Operacional</td><td>Entrega contínua e segura</td><td>Lead time de mudança</td><td class="num">21 dias</td><td class="num goalup">5 dias</td><td><span class="pill lead">Lead</span></td></tr>
+              <tr><td><span class="dot violet"></span>Operacional</td><td>Dado confiável na origem</td><td>Domínios com dono definido</td><td class="num">23%</td><td class="num goalup">90%</td><td><span class="pill lead">Lead</span></td></tr>
+              <tr><td><span class="dot green"></span>Futura</td><td>Competência interna em dados</td><td>Analistas certificados</td><td class="num">12%</td><td class="num goalup">70%</td><td><span class="pill lead">Lead</span></td></tr>
+              <tr><td><span class="dot green"></span>Futura</td><td>Arquitetura preparada</td><td>Serviços expostos por API</td><td class="num">31%</td><td class="num goalup">80%</td><td><span class="pill lead">Lead</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="lede" data-a="rise">Oito indicadores, não quarenta e sete. Quatro de tendência, quatro de resultado, todos ligados por uma seta do mapa estratégico.</p>
+      </div>
+    </section>
+
+    <!-- 30 PAINEL -->
+    <section class="slide" data-b="2" data-label="Painel executivo" data-note="Destacar que o conselho vê uma tela, não um relatório. Diálogo: um lê os quatro indicadores de topo, outro aponta o que está fora do ritmo e pergunta por que, o terceiro responde apontando o medidor de governança de dados.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">2.6 · Entrega</p><h2 class="t">A reunião de conselho em uma tela</h2></div>
+        <div class="panel" data-a="rise">
+          <div class="panelhead"><b>VERTTA · Scorecard Estratégico de TI</b><span>Ciclo trimestral · simulação mês 9</span></div>
+          <div class="kpis">
+            <div class="kpi">
+              <span class="k"><span class="dot gold"></span>Receita canal digital</span>
+              <span class="v" style="color:var(--gold)"><span data-count="19.4" data-dec="1" data-suffix="%">19,4%</span></span>
+              <svg viewBox="0 0 100 34" preserveAspectRatio="none" aria-hidden="true"><polyline class="spark" points="2,29 16,28 30,25 44,21 58,17 72,13 86,9 98,5" fill="none" stroke="#A96A06" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></polyline></svg>
+              <span class="d">▲ meta 25% · no ritmo</span>
+            </div>
+            <div class="kpi">
+              <span class="k"><span class="dot blue"></span>Conversão do app</span>
+              <span class="v" style="color:var(--blue)"><span data-count="2.6" data-dec="1" data-suffix="%">2,6%</span></span>
+              <svg viewBox="0 0 100 34" preserveAspectRatio="none" aria-hidden="true"><polyline class="spark" points="2,30 16,29 30,23 44,24 58,19 72,15 86,12 98,9" fill="none" stroke="#0A6FA6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></polyline></svg>
+              <span class="d">▲ meta 3,2% · no ritmo</span>
+            </div>
+            <div class="kpi">
+              <span class="k"><span class="dot violet"></span>Lead time de mudança</span>
+              <span class="v" style="color:var(--violet)"><span data-count="7" data-suffix=" d">7 d</span></span>
+              <svg viewBox="0 0 100 34" preserveAspectRatio="none" aria-hidden="true"><polyline class="spark" points="2,4 16,7 30,11 44,10 58,16 72,20 86,23 98,26" fill="none" stroke="#5739C4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></polyline></svg>
+              <span class="d">▼ meta 5 d · atenção</span>
+            </div>
+            <div class="kpi">
+              <span class="k"><span class="dot gold"></span>Custo por pedido</span>
+              <span class="v" style="color:var(--red)">R$ <span data-count="13.10" data-dec="2">13,10</span></span>
+              <svg viewBox="0 0 100 34" preserveAspectRatio="none" aria-hidden="true"><polyline class="spark" points="2,7 16,8 30,12 44,11 58,14 72,13 86,15 98,14" fill="none" stroke="#B92F35" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></polyline></svg>
+              <span class="d bad">meta R$ 10,30 · fora do ritmo</span>
+            </div>
+          </div>
+          <div class="grid g3">
+            <div class="card" style="gap:8px"><span class="tag">Domínios de dados com dono</span><div class="meter"><i data-w="68" style="background:var(--violet)"></i></div><p style="font-size:13px">68% de 90% — governança de dados é o gargalo da cadeia de causa.</p></div>
+            <div class="card" style="gap:8px"><span class="tag">Analistas certificados</span><div class="meter"><i data-w="54" style="background:var(--green)"></i></div><p style="font-size:13px">54% de 70% — trilha interna no terceiro ciclo.</p></div>
+            <div class="card" style="gap:8px"><span class="tag">Serviços expostos por API</span><div class="meter"><i data-w="61" style="background:var(--blue)"></i></div><p style="font-size:13px">61% de 80% — desbloqueia o estoque único entre loja e app.</p></div>
+          </div>
+        </div>
+        <p class="fine" data-a="fade">Valores ilustrativos do cenário simulado para fins do seminário.</p>
+      </div>
+    </section>
+
+    <!-- 31 MEDINDO O INTANGÍVEL -->
+    <section class="slide" data-b="2" data-label="Medindo o intangível" data-note="Este slide responde diretamente à lacuna do artigo. Se faltar tempo em outro ponto, este não pode ser cortado.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">2.7 · A resposta à lacuna</p><h2 class="t">Como se precifica um ativo que não está no balanço</h2></div>
+        <p class="lede" data-a="rise">A proposta não é inventar um valor contábil para o intangível. É <b>encadear o intangível até um valor que já existe na contabilidade</b>.</p>
+        <div class="flow">
+          <div class="step" data-a="rise"><span class="sn">Elo 01 · ativo intangível</span><h4>Catálogo de dados com dono</h4><p>Domínios com responsável formal e definição única saem de 23% para 90%.</p></div>
+          <div class="step" data-a="rise"><span class="sn">Elo 02 · efeito operacional</span><h4>Retrabalho de dado cai</h4><p>Menos reconciliação manual entre loja, app e marketing: 1.900 horas por ano.</p></div>
+          <div class="step" data-a="rise"><span class="sn">Elo 03 · efeito no cliente</span><h4>Estoque confiável no app</h4><p>Queda de 38% nos cancelamentos por produto indisponível.</p></div>
+          <div class="step" data-a="rise"><span class="sn">Elo 04 · efeito financeiro</span><h4>Receita preservada</h4><p>Pedidos que antes eram cancelados agora convertem e entram na demonstração de resultado.</p></div>
+        </div>
+        <p class="lede" data-a="rise">O ativo continua sem conta contábil. O que o scorecard entrega é a <b>cadeia auditável</b> entre ele e uma linha que o conselho já reconhece — e cada elo dessa cadeia tem indicador, meta e responsável.</p>
+      </div>
+    </section>
+
+    <!-- 32 A CONTA -->
+    <section class="slide" data-b="2" data-label="A conta que fecha" data-note="Slide decisivo do pitch. Falar devagar e deixar cada linha assentar. Se perguntarem a premissa do ticket médio, é R$ 180.">
+      <div class="inner top">
+        <div data-a="rise"><p class="eyebrow">2.8 · Demonstração</p><h2 class="t">A conta que o conselho pediu</h2></div>
+        <div class="tablewrap" data-a="rise">
+          <table>
+            <thead><tr><th>Componente do retorno</th><th>Memória de cálculo</th><th>Valor anual</th></tr></thead>
+            <tbody>
+              <tr><td>Receita digital incremental</td><td class="num">R$ 407,4 mi − R$ 231,0 mi</td><td class="num">+ R$ 176,4 mi</td></tr>
+              <tr><td>Margem de contribuição do digital</td><td class="num">9% sobre a receita incremental</td><td class="num">+ R$ 15,88 mi</td></tr>
+              <tr><td>Economia no custo por pedido</td><td class="num">R$ 1,70 × 2,26 mi de pedidos</td><td class="num">+ R$ 3,85 mi</td></tr>
+              <tr><td>Retrabalho de dados evitado</td><td class="num">1.900 h × R$ 85</td><td class="num">+ R$ 0,16 mi</td></tr>
+              <tr><td>Custo de sustentação do programa</td><td class="num">nuvem, licenças e squads</td><td class="num" style="color:var(--red)">− R$ 8,40 mi</td></tr>
+              <tr style="background:var(--green-soft)"><td><b>Ganho líquido anual</b></td><td class="num">sobre base investida de R$ 62 mi</td><td class="num"><b style="color:var(--green)">+ R$ 11,49 mi</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="grid g3">
+          <div class="card green" data-a="pop"><span class="tag">Retorno anual</span><p class="stat green"><span data-count="18.5" data-dec="1" data-suffix="%">18,5%</span></p><p>Acima da meta de 18% pactuada no scorecard.</p></div>
+          <div class="card" data-a="pop"><span class="tag">Payback do programa</span><p class="stat"><span data-count="5.4" data-dec="1">5,4</span><small> anos</small></p><p>Considerando apenas os ganhos já instrumentados.</p></div>
+          <div class="card blue" data-a="pop"><span class="tag">Indicadores que sustentam</span><p class="stat blue"><span data-count="8">8</span></p><p>Cada linha acima rastreia até um indicador do scorecard.</p></div>
+        </div>
+        <p class="fine" data-a="fade">Cenário simulado para fins didáticos. Premissas: ticket médio de R$ 180 e margem de contribuição do canal digital de 9%.</p>
+      </div>
+    </section>
+
+    <!-- 33 SENSIBILIDADE -->
+    <section class="slide" data-b="2" data-label="Se um elo falha" data-note="Mostra que o scorecard também serve para prever perda, não só ganho. É o argumento que segura o orçamento.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">2.9 · Análise de sensibilidade</p><h2 class="t">O que acontece se um elo da cadeia travar</h2></div>
+        <p class="lede" data-a="rise">A governança de dados está em 68% da meta. Se ela parar aí, a cadeia de causa e efeito se rompe três camadas acima — e o scorecard mostra isso <b>antes</b> de o resultado financeiro cair.</p>
+        <div class="grid g4">
+          <div class="card green" data-a="rise"><span class="tag">Camada que trava</span><h4>Dados sem dono</h4><p>Domínios estacionam em 68%. O catálogo deixa de avançar e as definições divergentes permanecem.</p></div>
+          <div class="card violet" data-a="rise"><span class="tag">Efeito em 1 trimestre</span><h4>Estoque volta a divergir</h4><p>Cancelamento por indisponibilidade sobe de novo e a esteira de entrega perde confiança.</p></div>
+          <div class="card blue" data-a="rise"><span class="tag">Efeito em 2 trimestres</span><h4>Conversão estaciona</h4><p>O aplicativo trava em torno de 2,6% e a meta de 3,2% se torna inatingível no ciclo.</p></div>
+          <div class="card red" data-a="rise"><span class="tag">Efeito em 3 trimestres</span><h4>Receita digital não chega</h4><p>O canal fecha o ano perto de 21%, não de 25% — cerca de <b>R$ 84 mi</b> de receita que deixa de entrar.</p></div>
+        </div>
+        <div class="quote" data-a="rise"><p>O pedido ao conselho não é "mais orçamento para TI". É quatro milhões para destravar o elo que sustenta os outros três.</p><cite>Fechamento do argumento financeiro</cite></div>
+      </div>
+    </section>
+
+    <!-- 34 ROADMAP (cronograma visual) -->
+    <section class="slide" data-b="2" data-label="Cronograma de implantação" data-note="Percorrer o cronograma da esquerda para a direita apontando as sobreposições. Diálogo: um pergunta por que não começar automatizando, outro responde que ferramenta antes de acordo produz painel bonito que ninguém usa.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">2.10 · Execução</p><h2 class="t">Como se implanta sem travar a operação</h2></div>
+        <div class="gantt" data-a="fade">
+          <div class="ghead"><span></span><span>0 a 90 dias · acordar</span><span>90 a 180 dias · instrumentar</span><span>180 a 365 dias · institucionalizar</span></div>
+          <div class="grow" data-a="side"><span class="gname">Workshop do mapa estratégico</span><span class="gbar p1" style="grid-column:2/6">0–90 d</span></div>
+          <div class="grow" data-a="side"><span class="gname">Oito indicadores com dono nomeado</span><span class="gbar p1" style="grid-column:3/7">30–120 d</span></div>
+          <div class="grow" data-a="side"><span class="gname">Linha de base medida, sem estimativa</span><span class="gbar p1" style="grid-column:4/8">60–150 d</span></div>
+          <div class="grow" data-a="side"><span class="gname">Coleta automatizada, sem planilha</span><span class="gbar p2" style="grid-column:6/11">90–240 d</span></div>
+          <div class="grow" data-a="side"><span class="gname">Painel executivo em ciclo mensal</span><span class="gbar p2" style="grid-column:7/12">120–270 d</span></div>
+          <div class="grow" data-a="side"><span class="gname">Cascata para desenvolvimento e operação</span><span class="gbar p2" style="grid-column:8/13">150–300 d</span></div>
+          <div class="grow" data-a="side"><span class="gname">Revisão trimestral das hipóteses</span><span class="gbar p3" style="grid-column:10/14">180–365 d</span></div>
+          <div class="grow" data-a="side"><span class="gname">Orçamento realocado pelo scorecard</span><span class="gbar p3" style="grid-column:11/14">240–365 d</span></div>
+          <div class="grow" data-a="side"><span class="gname">Metas ligadas à avaliação dos gestores</span><span class="gbar p3" style="grid-column:12/14">300–365 d</span></div>
+        </div>
+        <p class="lede" data-a="rise">Primeiro acordar, depois instrumentar, por último automatizar. Projetos que começam pela ferramenta terminam com um painel bonito que ninguém usa na decisão.</p>
+      </div>
+    </section>
+
+    <!-- 35 RISCOS -->
+    <section class="slide" data-b="2" data-label="O que faz fracassar" data-note="Honestidade intelectual vende. Mostrar que conhecemos os limites do modelo fortalece o pitch.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">2.11 · Limites</p><h2 class="t">Quatro formas conhecidas de fracassar</h2></div>
+        <div class="grid g4">
+          <div class="card red" data-a="rise"><span class="tag">Armadilha 01</span><h4>Virar lista de KPIs</h4><p>Sem o mapa de causa e efeito, o scorecard é só um relatório colorido com quatro abas.</p></div>
+          <div class="card red" data-a="rise"><span class="tag">Armadilha 02</span><h4>Excesso de indicadores</h4><p>Quarenta indicadores significam nenhuma prioridade. O limite prático fica entre 20 e 25.</p></div>
+          <div class="card red" data-a="rise"><span class="tag">Armadilha 03</span><h4>Patrocínio ausente</h4><p>Se o scorecard é projeto da TI e não da direção, ele morre no primeiro trimestre ruim.</p></div>
+          <div class="card red" data-a="rise"><span class="tag">Armadilha 04</span><h4>Medir o que é fácil</h4><p>O indicador disponível substitui o indicador certo e a cadeia de valor se rompe silenciosamente.</p></div>
+        </div>
+        <div class="quote" data-a="rise"><p>O scorecard não corrige uma estratégia ruim. Ele apenas torna visível, mais cedo, que ela não está funcionando.</p><cite>Fechamento do pitch</cite></div>
+      </div>
+    </section>
+
+    <!-- 36 ANTES E DEPOIS -->
+    <section class="slide" data-b="2" data-label="A conversa muda" data-note="Encerramento da Parte 02. Um lê a fala de antes, outro lê a de depois, o terceiro fecha com a frase sobre linguagem comum. Pausa antes de virar para a gamificação.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">2.12 · O resultado do pitch</p><h2 class="t">A mesma reunião, outra conversa</h2></div>
+        <div class="grid g2">
+          <div class="card fill-red" data-a="side">
+            <span class="tag" style="color:var(--red)">Antes</span>
+            <h4 style="font-family:var(--display);font-size:clamp(17px,2.1vw,23px);line-height:1.28">"A disponibilidade foi de 99,9% e fechamos 312 chamados no mês."</h4>
+            <p>O conselho ouve custo. A TI prova esforço. Ninguém decide nada e o programa continua sob suspeita.</p>
+          </div>
+          <div class="card fill-green" data-a="side">
+            <span class="tag" style="color:var(--green)">Depois</span>
+            <h4 style="font-family:var(--display);font-size:clamp(17px,2.1vw,23px);line-height:1.28">"O canal digital subiu de 11% para 19,4% da receita. O gargalo é a governança do dado, em 68% da meta, e é para lá que pedimos realocar R$ 4 milhões."</h4>
+            <p>O conselho ouve valor, enxerga o gargalo e tem uma decisão concreta sobre a mesa.</p>
+          </div>
+        </div>
+        <p class="lede" data-a="rise">O Balanced Scorecard não entregou um sistema novo à VERTTA. Entregou uma <b>linguagem comum</b> entre quem investe e quem executa — que é, no fim, a definição operacional de governança.</p>
+      </div>
+    </section>
+
+    <!-- 37 DIVISOR 3 -->
+    <section class="slide" data-b="3" data-label="◆ Parte 3 — Gamificação" data-note="Explicar a regra em 30 segundos e começar. Quem responder primeiro e certo pontua. Clicar na alternativa revela o resultado na tela.">
+      <div class="inner divider">
+        <p class="num" data-a="pop">03</p>
+        <div data-a="rise"><p class="eyebrow">Parte 03 · Gamificação e Fechamento</p><h2>Cinco questões. Pódio na hora.</h2></div>
+        <p class="lede" data-a="rise">Quiz competitivo no Kahoot: cinco questões sobre o que foi discutido, pontuadas por acerto e velocidade. Os três primeiros colocados ganham pontuação extra na nota de participação.</p>
+        <span class="timebox" data-a="rise">⏱ Parte 03 · 20 minutos · validação competitiva</span>
+      </div>
+    </section>
+
+    <!-- 38b ENTRADA NO KAHOOT -->
+    <section class="slide" data-b="3" data-label="Entre no Kahoot" data-note="Projetar o PIN e esperar a sala inteira entrar antes da primeira pergunta. Diálogo: um conduz a entrada no Kahoot enquanto outro circula confirmando quem já está dentro; o terceiro avisa que apelido não conta para o pódio.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">3.1 · Abertura da rodada</p><h2 class="t">Entre na sala antes da primeira pergunta</h2></div>
+        <div class="grid g3">
+          <div class="card green" data-a="pop"><span class="tag">Passo 01</span><h4>Abra kahoot.it</h4><p>No celular ou no notebook. Não é preciso criar conta nem instalar nada.</p></div>
+          <div class="card green" data-a="pop"><span class="tag">Passo 02</span><h4>Digite o PIN da sala</h4><p class="pinbox">PIN &nbsp;— — — — — —</p></div>
+          <div class="card green" data-a="pop"><span class="tag">Passo 03</span><h4>Use seu nome real</h4><p>O pódio vale pontuação extra na nota de participação, e apelido não pode ser identificado na hora da apuração.</p></div>
+        </div>
+        <div class="grid g2">
+          <div class="card fill-green" data-a="rise"><span class="tag" style="color:var(--green)">Como pontua</span><h4>Cinco questões · acerto e velocidade</h4><p>Cada questão pontua por acerto e por tempo de resposta. O ranking é acumulado e aparece na tela a cada rodada.</p></div>
+          <div class="card" data-a="rise"><span class="tag">Plano B</span><h4>Se a internet da sala falhar</h4><p>As mesmas cinco questões estão nos próximos slides e podem ser aplicadas na mão, com a contagem feita no quadro.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Q1 -->
+    <section class="slide" data-b="3" data-label="Questão 1" data-note="Resposta B. Erro comum: marcar A, confundindo o usuário interno com o conselho.">
+      <div class="inner"><div class="quiz" data-correct="b">
+        <div class="qhead" data-a="fall"><span class="qnum">Questão 01 de 05</span><span class="chip b3">Perspectivas do IT BSC</span></div>
+        <p class="qtext" data-a="rise">No IT Balanced Scorecard, a perspectiva de Contribuição Corporativa responde principalmente a qual pergunta?</p>
+        <div class="opts">
+          <button class="opt" data-k="a" data-a="rise"><span class="key">A</span><span>O usuário está satisfeito com o service desk?</span><span class="mk">✕</span></button>
+          <button class="opt" data-k="b" data-a="rise"><span class="key">B</span><span>Como a diretoria enxerga o valor gerado pela TI?</span><span class="mk">✓</span></button>
+          <button class="opt" data-k="c" data-a="rise"><span class="key">C</span><span>Nossos processos de entrega são eficientes?</span><span class="mk">✕</span></button>
+          <button class="opt" data-k="d" data-a="rise"><span class="key">D</span><span>Nossa equipe está pronta para novas tecnologias?</span><span class="mk">✕</span></button>
+        </div>
+        <p class="why"><b>Resposta B.</b> A Contribuição Corporativa é a tradução da perspectiva financeira do BSC clássico: ela olha a TI pelos olhos de quem investe. As outras três alternativas descrevem, na ordem, Orientação ao Usuário, Excelência Operacional e Orientação Futura.</p>
+      </div></div>
+    </section>
+
+    <!-- Q2 -->
+    <section class="slide" data-b="3" data-label="Questão 2" data-note="Resposta C. Se alguém argumentar que satisfação é lead, reconhecer: depende da camada do mapa. Rende 30 segundos de boa discussão.">
+      <div class="inner"><div class="quiz" data-correct="c">
+        <div class="qhead" data-a="fall"><span class="qnum">Questão 02 de 05</span><span class="chip b3">Lead e lag</span></div>
+        <p class="qtext" data-a="rise">Qual destes é um indicador de tendência, e não de resultado?</p>
+        <div class="opts">
+          <button class="opt" data-k="a" data-a="rise"><span class="key">A</span><span>Retorno do portfólio de projetos digitais</span><span class="mk">✕</span></button>
+          <button class="opt" data-k="b" data-a="rise"><span class="key">B</span><span>Receita do canal digital no trimestre</span><span class="mk">✕</span></button>
+          <button class="opt" data-k="c" data-a="rise"><span class="key">C</span><span>Percentual de analistas certificados em dados e IA</span><span class="mk">✓</span></button>
+          <button class="opt" data-k="d" data-a="rise"><span class="key">D</span><span>Participação de mercado do e-commerce</span><span class="mk">✕</span></button>
+        </div>
+        <p class="why"><b>Resposta C.</b> Capacitação é um impulsionador: é acionável hoje e o efeito aparece depois, nas demais perspectivas. Retorno, receita e participação de mercado são indicadores de resultado — confirmam o que já aconteceu.</p>
+      </div></div>
+    </section>
+
+    <!-- Q3 -->
+    <section class="slide" data-b="3" data-label="Questão 3" data-note="Resposta C. É a questão central do seminário inteiro. Se só uma for lembrada, que seja esta.">
+      <div class="inner"><div class="quiz" data-correct="a">
+        <div class="qhead" data-a="fall"><span class="qnum">Questão 03 de 05</span><span class="chip b3">Conceito central</span></div>
+        <p class="qtext" data-a="rise">O que diferencia um Balanced Scorecard de uma simples lista de indicadores?</p>
+        <div class="opts">
+          <button class="opt" data-k="a" data-a="rise"><span class="key">A</span><span>As relações de causa e efeito no mapa estratégico</span><span class="mk">✓</span></button>
+          <button class="opt" data-k="b" data-a="rise"><span class="key">B</span><span>A quantidade mínima de indicadores por área</span><span class="mk">✕</span></button>
+          <button class="opt" data-k="c" data-a="rise"><span class="key">C</span><span>O uso de painéis atualizados em tempo real</span><span class="mk">✕</span></button>
+          <button class="opt" data-k="d" data-a="rise"><span class="key">D</span><span>A auditoria externa obrigatória dos indicadores</span><span class="mk">✕</span></button>
+        </div>
+        <p class="why"><b>Resposta A.</b> Sem o mapa estratégico, quatro perspectivas são apenas quatro abas de uma planilha. O que torna o scorecard um instrumento de gestão é a cadeia de hipóteses testáveis que liga aprendizado a processos, processos a cliente e cliente a resultado financeiro.</p>
+      </div></div>
+    </section>
+
+    <!-- Q4 -->
+    <section class="slide" data-b="3" data-label="Questão 4" data-note="Resposta C. Se a maioria errar, voltar rapidamente ao slide da cascata usando o mapa (tecla O).">
+      <div class="inner"><div class="quiz" data-correct="d">
+        <div class="qhead" data-a="fall"><span class="qnum">Questão 04 de 05</span><span class="chip b3">Cascata de scorecards</span></div>
+        <p class="qtext" data-a="rise">Na cascata proposta por Van Grembergen, qual é a função do IT Strategic Balanced Scorecard?</p>
+        <div class="opts">
+          <button class="opt" data-k="a" data-a="rise"><span class="key">A</span><span>Substituir o scorecard corporativo da organização</span><span class="mk">✕</span></button>
+          <button class="opt" data-k="b" data-a="rise"><span class="key">B</span><span>Medir apenas a disponibilidade da infraestrutura</span><span class="mk">✕</span></button>
+          <button class="opt" data-k="c" data-a="rise"><span class="key">C</span><span>Controlar o orçamento de licenças de software</span><span class="mk">✕</span></button>
+          <button class="opt" data-k="d" data-a="rise"><span class="key">D</span><span>Consolidar os scorecards de TI e alimentar o BSC corporativo</span><span class="mk">✓</span></button>
+        </div>
+        <p class="why"><b>Resposta D.</b> Ele é a camada tradutora: recebe os indicadores operacionais e de projeto e os converte em linguagem de valor de negócio, que então sobe para o scorecard corporativo. É esse elo que materializa o alinhamento estratégico entre TI e negócio.</p>
+      </div></div>
+    </section>
+
+    <!-- Q5 -->
+    <section class="slide" data-b="3" data-label="Questão 5" data-note="Resposta B. Encerrar amarrando com a lacuna do artigo apresentada no bloco 1.">
+      <div class="inner"><div class="quiz" data-correct="b">
+        <div class="qhead" data-a="fall"><span class="qnum">Questão 05 de 05</span><span class="chip b3">Estado da arte 2021–2026</span></div>
+        <p class="qtext" data-a="rise">Qual é a principal lacuna apontada na literatura recente sobre BSC na governança de TI?</p>
+        <div class="opts">
+          <button class="opt" data-k="a" data-a="rise"><span class="key">A</span><span>Falta de ferramentas para montar scorecards</span><span class="mk">✕</span></button>
+          <button class="opt" data-k="b" data-a="rise"><span class="key">B</span><span>Mensurar o valor de ativos digitais intangíveis</span><span class="mk">✓</span></button>
+          <button class="opt" data-k="c" data-a="rise"><span class="key">C</span><span>Excesso de publicações e saturação do tema</span><span class="mk">✕</span></button>
+          <button class="opt" data-k="d" data-a="rise"><span class="key">D</span><span>Incompatibilidade entre BSC e métodos ágeis</span><span class="mk">✕</span></button>
+        </div>
+        <p class="why"><b>Resposta B.</b> É exatamente o recorte do nosso artigo. Ferramenta não é o problema, o tema não está saturado e a literatura mostra convivência — não incompatibilidade — entre scorecard e agilidade. O que falta é instrumento aceito para precificar o intangível digital.</p>
+      </div></div>
+    </section>
+
+    <!-- 43 PÓDIO -->
+    <section class="slide" data-b="3" data-label="Pódio" data-note="Ler o ranking final do Kahoot em voz alta e anotar os três nomes. Confirmar com o professor o registro da pontuação extra antes de seguir para o fechamento.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">Encerramento da Parte 03</p><h2 class="t">Pódio e pontuação extra</h2></div>
+        <div class="grid g2" style="align-items:start">
+          <div class="card" data-a="side">
+            <span class="tag">Ranking final do Kahoot</span>
+            <div class="podio">
+              <div class="pline"><span class="pos" style="color:var(--gold)">1º</span><span class="nm">nome do participante</span></div>
+              <div class="pline"><span class="pos" style="color:var(--blue)">2º</span><span class="nm">nome do participante</span></div>
+              <div class="pline" style="border:none"><span class="pos" style="color:var(--violet)">3º</span><span class="nm">nome do participante</span></div>
+            </div>
+          </div>
+          <div class="card fill-green" data-a="side">
+            <span class="tag" style="color:var(--green)">Recompensa</span>
+            <h4 style="font-family:var(--display);font-size:clamp(17px,2.1vw,23px);line-height:1.28">Os três colocados ganham pontuação extra na nota de participação da disciplina.</h4>
+            <p>Critério de desempate do Kahoot: maior número de acertos e, em caso de igualdade, menor tempo acumulado de resposta.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 44 CONSIDERAÇÕES -->
+    <section class="slide" data-b="3" data-label="Considerações finais" data-note="Fechamento em painel: cada um assume uma das três conclusões e emenda na do colega. Conectar explicitamente com o artigo que será postado no repositório.">
+      <div class="inner">
+        <div data-a="rise"><p class="eyebrow">Fechamento</p><h2 class="t">O que levamos daqui</h2></div>
+        <div class="grid g3">
+          <div class="card green" data-a="rise"><span class="tag">Conceito</span><h4>Scorecard é hipótese, não relatório</h4><p>O valor está nas setas do mapa estratégico, não na quantidade de indicadores do painel.</p></div>
+          <div class="card green" data-a="rise"><span class="tag">Governança</span><h4>Medir é como a TI entra na decisão</h4><p>Enquanto a TI reportar esforço, será custo. Quando reportar valor, vira pauta de conselho.</p></div>
+          <div class="card green" data-a="rise"><span class="tag">Pesquisa</span><h4>A lacuna continua aberta</h4><p>Medir ativo digital intangível segue sem instrumento consolidado — e é o que nosso artigo investiga.</p></div>
+        </div>
+        <div class="rule" data-a="sweep"></div>
+        <div data-a="rise">
+          <p class="eyebrow">Limitações e pesquisas futuras</p>
+          <ul class="ticks green" style="margin-top:12px">
+            <li>Predomínio de estudos de caso único no corpus analisado, o que limita a generalização dos achados.</li>
+            <li>Ausência de séries longitudinais que comprovem a sustentação dos ganhos ao longo de vários ciclos.</li>
+            <li>Agenda proposta: validar empiricamente cadeias de causa e efeito que liguem ativos digitais intangíveis a resultados financeiros auditáveis.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 45 REFERÊNCIAS -->
+    <section class="slide" data-b="3" data-label="Referências" data-note="Avisar que o artigo completo, em PDF, será postado na pasta ARTIGOS DOS SEMINÁRIOS no repositório da disciplina.">
+      <div class="inner top">
+        <div data-a="rise"><p class="eyebrow">Referencial</p><h2 class="t">Referências principais</h2></div>
+        <div class="grid g2">
+          <div class="card" data-a="side">
+            <span class="tag">Fundamentação do BSC</span>
+            <ul class="ticks" style="margin-top:4px">
+              <li>KAPLAN, R. S.; NORTON, D. P. <i>The Balanced Scorecard: measures that drive performance.</i> Harvard Business Review, 1992.</li>
+              <li>KAPLAN, R. S.; NORTON, D. P. <i>The Balanced Scorecard: translating strategy into action.</i> Harvard Business School Press, 1996.</li>
+              <li>KAPLAN, R. S.; NORTON, D. P. <i>Strategy Maps: converting intangible assets into tangible outcomes.</i> Harvard Business School Press, 2004.</li>
+              <li>KUMAR, S. et al. <i>Balanced scorecard: trends, developments, and future directions.</i> Review of Managerial Science, v. 18, n. 8, p. 2397–2439, 2024.</li>
+              <li>FABAC, R. <i>Digital Balanced Scorecard System as a Supporting Strategy for Digital Transformation.</i> Sustainability, v. 14, art. 9690, 2022.</li>
+              <li>HERRERO FILHO, E. <i>Balanced Scorecard e a Gestão Estratégica.</i> Rio de Janeiro: Campus.</li>
+            </ul>
+          </div>
+          <div class="card" data-a="side">
+            <span class="tag">Governança e alinhamento de TI</span>
+            <ul class="ticks" style="margin-top:4px">
+              <li>TURISOVÁ, R.; KÁDÁROVÁ, J. <i>Extending the Balanced Scorecard for AI-Driven and Sustainable Digital Transformation.</i> Sustainability, v. 18, n. 17, art. 9192, 2026.</li>
+              <li>VAN GREMBERGEN, W.; VAN BRUGGEN, R. <i>Measuring and improving corporate information technology through the balanced scorecard.</i> 1997.</li>
+              <li>VAN GREMBERGEN, W.; DE HAES, S. <i>Enterprise Governance of Information Technology.</i> Springer.</li>
+              <li>HENDERSON, J. C.; VENKATRAMAN, N. <i>Strategic alignment: leveraging information technology for transforming organizations.</i> IBM Systems Journal, 1993.</li>
+              <li>WEILL, P.; ROSS, J. W. <i>IT Governance.</i> Harvard Business School Press, 2004.</li>
+              <li>ISACA. <i>COBIT 2019 Framework: governance and management objectives.</i></li>
+              <li>ABNT NBR ISO/IEC 38500 — <i>Governança de TI para a organização.</i></li>
+              <li>FERNANDES, A. A.; ABREU, V. F. <i>Implantando a Governança de TI.</i> Rio de Janeiro: Brasport.</li>
+            </ul>
+          </div>
+        </div>
+        <p class="fine" data-a="fade">Catálogo bibliométrico completo no artigo, postado em PDF na pasta ARTIGOS DOS SEMINÁRIOS do repositório da disciplina até o dia da apresentação. O nome do arquivo é o próprio título do artigo.</p>
+      </div>
+    </section>
+
+    <!-- 46 FINAL -->
+    <section class="slide" data-b="3" data-label="Obrigado" data-note="Abrir para perguntas. Lembrar a turma de que o artigo será postado em PDF na pasta ARTIGOS DOS SEMINÁRIOS.">
+      <div class="inner cover">
+        <p class="eyebrow" data-a="fall">Perguntas</p>
+        <h1 data-a="blur">Obrigado.<br><em>Vamos às perguntas.</em></h1>
+        <div class="rule" data-a="sweep"></div>
+        <div class="team" data-a="rise">
+          <span class="person"><i>MS</i><b>Murilo de Souza</b></span>
+          <span class="person"><i class="c">JB</i><b>João Pedro Bastian</b></span>
+          <span class="person"><i class="v">TF</i><b>Tiffani</b></span>
+        </div>
+        <div class="metaline" data-a="fade">
+          <span>Governança de TI · 2026.2</span><span>Tema 01 · BSC</span><span>Artigo em PDF na pasta ARTIGOS DOS SEMINÁRIOS</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="botbar">
+    <span class="who" id="label">Capa</span>
+    <div class="nav">
+      <button class="nbtn" id="prev" aria-label="Slide anterior">‹</button>
+      <span class="count" id="count">1 / 1</span>
+      <button class="nbtn" id="next" aria-label="Próximo slide">›</button>
+    </div>
+  </footer>
+</div>
+
+<div class="notes" id="notes" hidden></div>
+
+<div class="overview" id="overview" hidden>
+  <div class="ovhead">
+    <h3 style="font-size:22px">Mapa da apresentação</h3>
+    <button class="tbtn" id="ovClose">Fechar · Esc</button>
+  </div>
+  <div class="ovgrid" id="ovgrid"></div>
+</div>
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var deck = document.getElementById('deck');
+  var stage = document.getElementById('stage');
+  var rail = document.getElementById('rail');
+  var count = document.getElementById('count');
+  var label = document.getElementById('label');
+  var chip = document.getElementById('blockchip');
+  var notes = document.getElementById('notes');
+  var overview = document.getElementById('overview');
+  var ovgrid = document.getElementById('ovgrid');
+  var i = 0, notesOn = false;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var BLOCKS = {
+    '0': {name:'Abertura',               cls:'',   c:'#123A68', t:'rgba(18,58,104,.10)',  t2:'rgba(18,58,104,.06)'},
+    '1': {name:'Parte 1 · Teoria',      cls:'b1', c:'#0A6FA6', t:'rgba(10,111,166,.13)', t2:'rgba(10,111,166,.07)'},
+    '2': {name:'Parte 2 · Pitch',       cls:'b2', c:'#A96A06', t:'rgba(169,106,6,.13)', t2:'rgba(169,106,6,.07)'},
+    '3': {name:'Parte 3 · Gamificação', cls:'b3', c:'#077A51', t:'rgba(7,122,81,.13)',  t2:'rgba(7,122,81,.07)'}
+  };
+
+  // índice de animação por elemento (respeita --i definido no HTML)
+  slides.forEach(function(s){
+    var n = 0;
+    Array.prototype.forEach.call(s.querySelectorAll('[data-a]'), function(el){
+      if(!el.style.getPropertyValue('--i')) el.style.setProperty('--i', n);
+      n++;
+    });
+  });
+
+  function animateValues(slide){
+    if(reduce) return;
+
+    // contadores numéricos
+    Array.prototype.forEach.call(slide.querySelectorAll('[data-count]'), function(el){
+      var target = parseFloat(el.getAttribute('data-count'));
+      if(isNaN(target)) return;
+      var dec = parseInt(el.getAttribute('data-dec') || '0', 10);
+      var suffix = el.getAttribute('data-suffix') || '';
+      var final = el.getAttribute('data-final') || el.textContent;
+      el.setAttribute('data-final', final);
+      var dur = 1900, t0 = performance.now();
+      function frame(now){
+        var p = Math.min(1, (now - t0) / dur);
+        var eased = 1 - Math.pow(1 - p, 3);
+        if(p < 1){
+          el.textContent = (target * eased).toFixed(dec).replace('.', ',') + suffix;
+          requestAnimationFrame(frame);
+        } else {
+          el.textContent = final;
+        }
+      }
+      el.textContent = (0).toFixed(dec).replace('.', ',') + suffix;
+      requestAnimationFrame(frame);
+    });
+
+    // barras do gráfico
+    Array.prototype.forEach.call(slide.querySelectorAll('.bar .col'), function(el){
+      var h = el.getAttribute('data-h');
+      el.style.height = '0%';
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){ el.style.height = h + '%'; });
+      });
+    });
+
+    // medidores
+    Array.prototype.forEach.call(slide.querySelectorAll('.meter i'), function(el){
+      var w = el.getAttribute('data-w');
+      el.style.width = '0%';
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){ el.style.width = w + '%'; });
+      });
+    });
+
+    // funil
+    Array.prototype.forEach.call(slide.querySelectorAll('.fbar'), function(el, k){
+      var w = el.getAttribute('data-w');
+      el.style.width = '0%';
+      setTimeout(function(){ el.style.width = w + '%'; }, 200 + k * 190);
+    });
+
+    // linha do tempo
+    var prog = slide.querySelector('.prog');
+    if(prog){
+      prog.style.transform = 'scaleX(0)';
+      setTimeout(function(){ prog.style.transform = 'scaleX(1)'; }, 260);
+    }
+
+    // sparklines
+    Array.prototype.forEach.call(slide.querySelectorAll('.spark'), function(el, k){
+      var len;
+      try { len = el.getTotalLength(); } catch(e){ return; }
+      el.style.transition = 'none';
+      el.style.strokeDasharray = len;
+      el.style.strokeDashoffset = len;
+      setTimeout(function(){
+        el.style.transition = 'stroke-dashoffset 1.7s cubic-bezier(.16,.84,.24,1)';
+        el.style.strokeDashoffset = '0';
+      }, 340 + k * 210);
+    });
+  }
+
+  function restBars(slide){
+    // estado final sem animação (reduced motion)
+    Array.prototype.forEach.call(slide.querySelectorAll('.bar .col'), function(el){ el.style.height = el.getAttribute('data-h') + '%'; });
+    Array.prototype.forEach.call(slide.querySelectorAll('.meter i'), function(el){ el.style.width = el.getAttribute('data-w') + '%'; });
+    Array.prototype.forEach.call(slide.querySelectorAll('.fbar'), function(el){ el.style.width = el.getAttribute('data-w') + '%'; });
+    var prog = slide.querySelector('.prog');
+    if(prog) prog.style.transform = 'scaleX(1)';
+  }
+
+  function show(n){
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach(function(s, k){ s.classList.toggle('on', k === i); });
+    var cur = slides[i];
+    var b = cur.getAttribute('data-b') || '0';
+    var B = BLOCKS[b];
+    deck.style.setProperty('--block', B.c);
+    deck.style.setProperty('--tint', B.t);
+    deck.style.setProperty('--tint-2', B.t2);
+    document.documentElement.style.setProperty('--block', B.c);
+    document.documentElement.style.setProperty('--tint', B.t);
+    document.documentElement.style.setProperty('--tint-2', B.t2);
+    rail.style.width = ((i + 1) / slides.length * 100) + '%';
+    count.textContent = (i + 1) + ' / ' + slides.length;
+    label.textContent = cur.getAttribute('data-label') || '';
+    chip.textContent = B.name;
+    chip.className = 'chip ' + B.cls;
+    cur.scrollTop = 0;
+    if(reduce) restBars(cur); else animateValues(cur);
+    renderNotes();
+    Array.prototype.forEach.call(ovgrid.children, function(el, k){ el.classList.toggle('cur', k === i); });
+  }
+
+  function renderNotes(){
+    if(!notesOn){ notes.hidden = true; return; }
+    var n = slides[i].getAttribute('data-note');
+    notes.hidden = false;
+    notes.innerHTML = '<b>Nota do apresentador</b>';
+    notes.appendChild(document.createTextNode(n ? n : 'Sem nota para este slide.'));
+  }
+
+  document.getElementById('next').addEventListener('click', function(){ show(i + 1); });
+  document.getElementById('prev').addEventListener('click', function(){ show(i - 1); });
+
+  document.addEventListener('keydown', function(e){
+    if(!overview.hidden){ if(e.key === 'Escape') overview.hidden = true; return; }
+    var k = e.key;
+    if(k === 'ArrowRight' || k === 'PageDown' || k === ' '){ e.preventDefault(); show(i + 1); }
+    else if(k === 'ArrowLeft' || k === 'PageUp'){ e.preventDefault(); show(i - 1); }
+    else if(k === 'Home'){ e.preventDefault(); show(0); }
+    else if(k === 'End'){ e.preventDefault(); show(slides.length - 1); }
+    else if(k === 'n' || k === 'N'){ toggleNotes(); }
+    else if(k === 'o' || k === 'O'){ overview.hidden = false; }
+    else if(k === 't' || k === 'T'){ toggleClock(); }
+    else if(k === 'f' || k === 'F'){
+      if(document.fullscreenElement){ document.exitFullscreen && document.exitFullscreen().catch(function(){}); }
+      else if(document.documentElement.requestFullscreen){ document.documentElement.requestFullscreen().catch(function(){}); }
+    }
+  });
+
+  var tx = 0, ty = 0;
+  stage.addEventListener('touchstart', function(e){ tx = e.changedTouches[0].clientX; ty = e.changedTouches[0].clientY; }, {passive:true});
+  stage.addEventListener('touchend', function(e){
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if(Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.6){ show(dx < 0 ? i + 1 : i - 1); }
+  }, {passive:true});
+
+  function toggleNotes(){
+    notesOn = !notesOn;
+    document.getElementById('btnNotes').classList.toggle('on', notesOn);
+    renderNotes();
+  }
+  document.getElementById('btnNotes').addEventListener('click', toggleNotes);
+
+  slides.forEach(function(s, k){
+    var b = document.createElement('button');
+    b.className = 'ovitem';
+    b.setAttribute('data-b', s.getAttribute('data-b') || '0');
+    var n = document.createElement('span'); n.className = 'n'; n.textContent = String(k + 1).padStart(2, '0');
+    var l = document.createElement('span'); l.className = 'l'; l.textContent = s.getAttribute('data-label') || '';
+    b.appendChild(n); b.appendChild(l);
+    b.addEventListener('click', function(){ overview.hidden = true; show(k); });
+    ovgrid.appendChild(b);
+  });
+  document.getElementById('btnOv').addEventListener('click', function(){ overview.hidden = false; });
+  document.getElementById('ovClose').addEventListener('click', function(){ overview.hidden = true; });
+
+  var clockEl = document.getElementById('clock'), t0 = null, tick = null;
+  function fmt(ms){
+    var s = Math.floor(ms / 1000);
+    return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+  }
+  function toggleClock(){
+    if(tick){ clearInterval(tick); tick = null; clockEl.classList.remove('on'); return; }
+    t0 = Date.now(); clockEl.classList.add('on');
+    clockEl.textContent = '00:00';
+    tick = setInterval(function(){ clockEl.textContent = fmt(Date.now() - t0); }, 1000);
+  }
+  clockEl.addEventListener('click', toggleClock);
+
+  document.querySelectorAll('.quiz').forEach(function(q){
+    var right = q.getAttribute('data-correct');
+    var why = q.querySelector('.why');
+    q.querySelectorAll('.opt').forEach(function(opt){
+      opt.addEventListener('click', function(){
+        if(q.dataset.done === '1') return;
+        q.dataset.done = '1';
+        q.querySelectorAll('.opt').forEach(function(o){
+          o.classList.add('locked');
+          if(o.getAttribute('data-k') === right) o.classList.add('right');
+          else if(o === opt) o.classList.add('wrong');
+          else o.classList.add('dim');
+        });
+        why.classList.add('show');
+      });
+    });
+  });
+
+  show(0);
+})();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+<script type="module" src="live.js"></script>
+</body>
+</html>
